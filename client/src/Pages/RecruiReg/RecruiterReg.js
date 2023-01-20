@@ -51,7 +51,7 @@ export default function RecruiterReg() {
               />
             </div>
             <div className='form-group'>
-              <label htmlFor='lastName'>Last Name: </label>
+              <label htmlFor='lastName'>Last Nam: </label>
               <Field
                 type='text'
                 name='lastName'
