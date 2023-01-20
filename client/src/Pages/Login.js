@@ -17,8 +17,12 @@ function Login() {
 
   return (
     <div>
-    <p1>If you don't have an account click here</p1>
-    <button type="submit">Register now!</button>
+    <p1>If you don't have an account click here:</p1>
+    <br/>
+    <button type="submit">Register as a Student</button>
+    <button type="submit">Register as a Recruiter</button>
+    <br/>
+    <br/>
     <form onSubmit={handleSubmit}>
       <label>
         Email:
