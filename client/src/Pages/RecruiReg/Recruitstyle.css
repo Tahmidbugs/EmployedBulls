@@ -1,0 +1,45 @@
+.form-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin: 20px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+}
+
+.form-error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.btn {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
