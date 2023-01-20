@@ -10,9 +10,9 @@ dotenv.config();
 app.use(express.json());
 const twilio = require("twilio");
 
-const accountSid = "AC4d649f428cdae8755f229b724fe64efa";
-const authToken = "c59320a2704c7cb5a5546995f381180a";
-const verifySid = "VAf5b2a7d799ac79b20a6c496f936dc173";
+const accountSid = process.env.ACCOUNTSID;
+const authToken = process.env.AUTHTOKEN;
+const verifySid = process.env.VERIFY_SID;
 
 app.use(
   cors({
