@@ -1,7 +1,14 @@
 import React from "react";
 
 const ApplicationForm = () => {
-  return <></>;
+  return (
+    <>
+      <div>
+        ApplicationForm: A few prefilled data, cover letter option,
+        availabilities, disabilities etc
+      </div>
+    </>
+  );
 };
 
 export default ApplicationForm;

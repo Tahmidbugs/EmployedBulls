@@ -1,17 +1,15 @@
-import Registration from './Pages/Registration';
-import Login from './Pages/Login';
-import RecruiterReg from './Pages/RecruiReg/RecruiterReg';
+import Registration from "./Pages/Registration";
+import Login from "./Pages/Login";
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       Meow nice
-      {/* <Registration />
+      <Registration />
       <br />
       <br />
       <br />
-      <Login /> */}
-      <RecruiterReg />
+      <Login />
     </div>
   );
 }
