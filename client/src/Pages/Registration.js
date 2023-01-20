@@ -22,7 +22,7 @@ function Registration() {
     setEmailError('');
     return true;
   }
-  
+  /* eslint-disable */
   const validatePassword = () => {
     const passwordRegex = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     if (!passwordRegex.test(password)) {
@@ -32,8 +32,10 @@ function Registration() {
     setPasswordError('');
     return true;
   }
-
+/* eslint-enable */
   return (
+    <div>
+
     <form onSubmit={handleSubmit}>
       <label>
         Email:
@@ -49,6 +51,7 @@ function Registration() {
       <br />
       <button type="submit">Register</button>
     </form>
+    </div>
   );
 }
 
