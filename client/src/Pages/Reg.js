@@ -34,10 +34,13 @@ function Reg() {
     setIsLoading(true);
     try {
       // Send a request to the server to verify the code
-      const response = await axios.post("http://localhost:8800/api/verify", {
-        email,
-        verificationCode,
-      });
+      const response = await axios.post(
+        "http://localhost:8800/api/auth/verify",
+        {
+          email,
+          verificationCode,
+        }
+      );
       setIsLoading(false);
       if (response.status === 200) {
         // Proceed with the registration process
