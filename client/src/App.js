@@ -1,4 +1,3 @@
-import Registration from "./Pages/Registration";
 import Login from "./Pages/Login";
 
 function App() {
