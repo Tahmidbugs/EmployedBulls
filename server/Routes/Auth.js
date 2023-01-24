@@ -58,7 +58,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { email } = req.body;
+  const { email, username, password } = req.body;
 
   try {
     // Send verification code to the email address
@@ -67,7 +67,10 @@ router.post("/register", async (req, res) => {
       .verifications.create({ to: email, channel: "email" })
       .then((verification) => {
         // Store the email and a boolean value indicating whether the email has been verified in the database
-        db.query("INSERT INTO userss (email) VALUES ($1)", [email])
+        db.query(
+          "INSERT INTO students (email,username,password) VALUES ($1, $2, $3)",
+          [email, username, password]
+        )
           .then((results) => {
             res
               .status(200)
