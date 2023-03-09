@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Registration() {
   const [email, setEmail] = useState("");
@@ -118,6 +119,9 @@ function Registration() {
         </label>
         <br />
         <button type="submit">Register</button>
+        <Link to="/login">
+          <button type="submit">Don't have an account? Login</button>
+        </Link>
       </form>
       {isRegistered && (
         <form onSubmit={handleVerification}>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,31 +14,45 @@ function Login() {
     } catch (err) {
       setError("Incorrect email or password.");
     }
-  }
+  };
 
   return (
     <div>
-    <p1>If you don't have an account click here:</p1>
-    <br/>
-    <button type="submit">Register as a Student</button>
-    <button type="submit">Register as a Recruiter</button>
-    <br/>
-    <br/>
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-        <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-      </label>
+      <p1>If you don't have an account click here:</p1>
       <br />
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-      </label>
+      <Link to="/registration">
+        <button type="submit">Register as a Student</button>
+      </Link>
+      <Link to="/registration">
+        <button type="submit">Register as a Recruiter</button>
+      </Link>
       <br />
-      {error && <div style={{ color: 'red' }}>{error}</div>}
       <br />
-      <button type="submit">Login</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        {error && <div style={{ color: "red" }}>{error}</div>}
+        <br />
+        <button type="submit">Login</button>
+      </form>
     </div>
   );
 }
