@@ -1,46 +1,52 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import './style.css';
 function Registration() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistered, setisRegistered] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [verified, setVerified] = useState(false);
+  const [isTeacher, setIsTeacher] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8800/api/auth/register",
-        { email, password, username }
-      );
+      // const response = await axios.post(
+      //   'http://localhost:8800/api/auth/register',
+      //   { email, password, username }
+      // );
       setIsLoading(false);
-      if (response.status === 200) {
-        setisRegistered(true);
+      // if (response.status === 200) {
+      if (isTeacher) {
+        navigate('/recruiter-reg');
+      } else {
+        navigate('/student-reg');
       }
-      console.log("asking for verification");
+      // }
+      console.log('asking for verification');
     } catch (err) {
       setIsLoading(false);
       setError(err.message);
     }
   };
 
-  const handleVerification = async (e) => {
+  const handleVerification = async e => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/auth/verify",
+        'http://localhost:8800/api/auth/verify',
         {
           email,
           verificationCode,
@@ -50,7 +56,7 @@ function Registration() {
       if (response.status === 200) {
         setVerified(true);
       } else {
-        setError("Invalid verification code");
+        setError('Invalid verification code');
       }
     } catch (err) {
       setIsLoading(false);
@@ -86,56 +92,70 @@ function Registration() {
   // };
   /* eslint-enable */
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className='container'>
+      <h1>Register</h1>
+      <form className='form' onSubmit={handleSubmit}>
         <label>
           Email:
           <input
-            type="email"
+            type='email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
           />
-          {emailError && <div style={{ color: "red" }}>{emailError}</div>}
+          {emailError && <div className='error'>{emailError}</div>}
         </label>
         <br />
         <label>
           Password:
           <input
-            type="password"
+            type='password'
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
           />
         </label>
         <label>
           Username:
           <input
-            type="text"
+            type='text'
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
             required
           />
         </label>
         <br />
-        <button type="submit">Register</button>
-        <Link to="/login">
-          <button type="submit">Don't have an account? Login</button>
+        <label className='rec-checkbox'>
+          <input
+            type='checkbox'
+            checked={isTeacher}
+            onChange={() => setIsTeacher(!isTeacher)}
+          />
+          Register as a Recruiter
+        </label>
+        <br />
+        <button type='submit' className='button'>
+          Register
+        </button>
+        <Link to='/login'>
+          <button type='submit' className='button'>
+            Have an account? Login
+          </button>
         </Link>
       </form>
       {isRegistered && (
-        <form onSubmit={handleVerification}>
+        <form className='form' onSubmit={handleVerification}>
           <label>
             Verification code:
             <input
-              type="text"
+              type='text'
               value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
+              onChange={e => setVerificationCode(e.target.value)}
               required
             />
           </label>
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Verifying..." : "Verify"}
+          <button type='submit' className='button' disabled={isLoading}>
+            {isLoading ? 'Verifying...' : 'Verify'}
           </button>
         </form>
       )}

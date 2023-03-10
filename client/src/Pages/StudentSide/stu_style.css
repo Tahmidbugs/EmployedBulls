@@ -1,0 +1,158 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1000px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.form label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.form input[type='text'],
+.form input[type='email'],
+.form input[type='tel'],
+.form input[type='number'] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f7f7f7;
+  transition: all 0.3s ease-in-out;
+}
+
+.form input[type='text']:focus,
+.form input[type='email']:focus,
+.form input[type='tel']:focus,
+.form input[type='number']:focus {
+  outline: none;
+  border: 1px solid #008cba;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+.form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f7f7f7;
+  transition: all 0.3s ease-in-out;
+}
+
+.form textarea:focus {
+  outline: none;
+  border: 1px solid #008cba;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+.form button[type='submit'] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #008cba;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.form button[type='submit']:hover {
+  background-color: #006080;
+}
+
+.form p {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.form .error {
+  color: red;
+  font-size: 1rem;
+}
+
+.form .file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.form .file-upload label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.form .file-upload input[type='file'] {
+  display: none;
+}
+
+.form .file-upload .upload-button {
+  background-color: #008cba;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.form .file-upload .upload-button:hover {
+  background-color: #006080;
+}
+
+.checkbox-label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.checkbox label {
+  margin-left: 10px;
+  font-size: 1rem;
+}
