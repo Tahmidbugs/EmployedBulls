@@ -1,0 +1,25 @@
+.job-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.job-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.job-page p {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.job-page .applicant-count {
+  font-weight: bold;
+}
+
+.job-page .apply-button {
+  margin-top: 20px;
+}
