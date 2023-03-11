@@ -2,16 +2,33 @@ CREATE DATABASE UnitTestMySkills
 
 
 
-CREATE TABLE students (
-  id SERIAL PRIMARY KEY NOT NULL,
-  email VARCHAR(300) NOT NULL,
---   username VARCHAR(300) NOT NULL,
---   password VARCHAR(6) NOT NULL,
---   profilePicture character varying(300) DEFAULT https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png;
-    UNIQUE(email), 
-    -- UNIQUE(username);
-
+CREATE TABLE Student (
+  UID SERIAL PRIMARY KEY,
+  email VARCHAR(255) NOT NULL,
+  Resume TEXT,
+  Applied_Jobs TEXT[],
+  password VARCHAR(255) NOT NULL,
+  Cover_letter TEXT,
+  Degree VARCHAR(255),
+  Major VARCHAR(255),
+  Availability VARCHAR(255),
+  Job_history TEXT[],
+  Preferred_job_type VARCHAR(255)
 );
+
+
+CREATE TABLE users (
+  rid SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255),
+  phone VARCHAR(20),
+  company VARCHAR(255),
+  verified BOOLEAN,
+  password VARCHAR(255)
+);
+
+
+
 
 CREATE TABLE userss (
   id SERIAL PRIMARY KEY NOT NULL,

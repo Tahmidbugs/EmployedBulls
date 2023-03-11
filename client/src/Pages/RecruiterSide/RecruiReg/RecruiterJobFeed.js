@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Formik, useFormik } from 'formik';
-import './Recruitstyle.css';
+import React, { useState } from "react";
+import { Formik, useFormik } from "formik";
+import "./Recruitstyle.css";
 export default function RecruiterJobFeed() {
   const [jobs, setJobs] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const formik = useFormik({
     initialValues: {
-      jobTitle: '',
-      jobDescription: '',
-      qualifications: '',
-      location: '',
+      jobTitle: "",
+      jobDescription: "",
+      qualifications: "",
+      location: "",
     },
     onSubmit: (values, actions) => {
       setJobs([...jobs, values]);
@@ -24,44 +24,44 @@ export default function RecruiterJobFeed() {
         <Formik {...formik}>
           {({ isSubmitting }) => (
             <form onSubmit={formik.handleSubmit}>
-              <div className='form-group'>
-                <label htmlFor='jobTitle'>Job Title</label>
+              <div className="form-group">
+                <label htmlFor="jobTitle">Job Title</label>
                 <input
-                  type='text'
-                  name='jobTitle'
-                  className='form-control'
-                  {...formik.getFieldProps('jobTitle')}
+                  type="text"
+                  name="jobTitle"
+                  className="form-control"
+                  {...formik.getFieldProps("jobTitle")}
                 />
               </div>
-              <div className='form-group'>
-                <label htmlFor='jobDescription'>Job Description</label>
+              <div className="form-group">
+                <label htmlFor="jobDescription">Job Description</label>
                 <textarea
-                  name='jobDescription'
-                  className='form-control'
-                  {...formik.getFieldProps('jobDescription')}
+                  name="jobDescription"
+                  className="form-control"
+                  {...formik.getFieldProps("jobDescription")}
                 ></textarea>
               </div>
-              <div className='form-group'>
-                <label htmlFor='qualifications'>Qualifications</label>
+              <div className="form-group">
+                <label htmlFor="qualifications">Qualifications</label>
                 <input
-                  type='text'
-                  name='qualifications'
-                  className='form-control'
-                  {...formik.getFieldProps('qualifications')}
+                  type="text"
+                  name="qualifications"
+                  className="form-control"
+                  {...formik.getFieldProps("qualifications")}
                 />
               </div>
-              <div className='form-group'>
-                <label htmlFor='location'>Location</label>
+              <div className="form-group">
+                <label htmlFor="location">Location</label>
                 <input
-                  type='text'
-                  name='location'
-                  className='form-control'
-                  {...formik.getFieldProps('location')}
+                  type="text"
+                  name="location"
+                  className="form-control"
+                  {...formik.getFieldProps("location")}
                 />
               </div>
               <button
-                type='submit'
-                className='btn btn-primary'
+                type="submit"
+                className="btn btn-primary"
                 disabled={isSubmitting}
               >
                 Add Job
@@ -71,7 +71,7 @@ export default function RecruiterJobFeed() {
         </Formik>
       ) : (
         <button onClick={() => setIsAdding(true)}>
-          <i className='fas fa-plus-circle'></i> Add Job
+          <i className="fas fa-plus-circle"></i> Add Job
         </button>
       )}
       <div>

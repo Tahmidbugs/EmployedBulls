@@ -1,6 +1,34 @@
-import React from "react";
+import axios from "axios";
+import React, { useRef } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./studentProfile.css";
 const StudentProfile = () => {
+  const firstname = useRef();
+  const lastname = useRef();
+  const UID = useRef();
+  const GPA = useRef();
+  const degree = useRef();
+
+  const navigate = useNavigate();
+
+  const submitData = async () => {
+    const name = firstname + " " + lastname;
+    try {
+      // const response = await axios.post(
+      //   `http://localhost:8800/api/student/updateprofile/${UID}`,
+      //   {
+      //     name,
+      //     UID,
+      //     degree,
+      //     GPA,
+      //   }
+      // );
+      navigate("/jobfeed");
+    } catch (e) {
+      console.log("somethings up");
+    }
+  };
+
   return (
     <div
       style={{
@@ -24,19 +52,18 @@ const StudentProfile = () => {
             style={{ display: "none" }}
           />
         </button>
-        <input placeholder="First Name" />
-        <input placeholder="Last Name" />
-        <input placeholder="Email" type="email" />
-
-        <input placeholder="Resume" type="file" />
-        <input placeholder="Degree" />
+        <input placeholder="First Name" ref={firstname} />
+        <input placeholder="Last Name" ref={lastname} />
+        {/* <input placeholder="Email" type="email" ref={email} /> */}
+        <input placeholder="UID" ref={UID} />
         <input placeholder="USF Major" />
-        <input placeholder="GPA" />
+        <input placeholder="GPA" ref={GPA} />
+        <input placeholder="Resume" type="file" />
+        <input placeholder="Degree" ref={degree} />
         <input placeholder="Preferred Job Type" />
-        <input placeholder="Job History" />
         <input placeholder="Availability" />
       </div>
-      <button>Get started</button>
+      <button onClick={submitData}>Get started</button>
     </div>
   );
 };
