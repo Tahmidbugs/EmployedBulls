@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Formik, useFormik } from 'formik';
+import { Link } from 'react-router-dom';
 import './Recruitstyle.css';
+
 export default function RecruiterJobFeed() {
   const [jobs, setJobs] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const formik = useFormik({
     initialValues: {
+      companyName: '',
       jobTitle: '',
       jobDescription: '',
       qualifications: '',
@@ -19,11 +22,20 @@ export default function RecruiterJobFeed() {
   });
 
   return (
-    <div>
+    <div className='form-container'>
       {isAdding ? (
         <Formik {...formik}>
           {({ isSubmitting }) => (
             <form onSubmit={formik.handleSubmit}>
+              <div className='form-group'>
+                <label htmlFor='companyName'>Company Name</label>
+                <input
+                  type='text'
+                  name='companyName'
+                  className='form-control'
+                  {...formik.getFieldProps('companyName')}
+                />
+              </div>
               <div className='form-group'>
                 <label htmlFor='jobTitle'>Job Title</label>
                 <input
@@ -70,20 +82,27 @@ export default function RecruiterJobFeed() {
           )}
         </Formik>
       ) : (
-        <button onClick={() => setIsAdding(true)}>
+        <button className='btn btn-primary' onClick={() => setIsAdding(true)}>
           <i className='fas fa-plus-circle'></i> Add Job
         </button>
       )}
-      <div>
-        {jobs.map((job, index) => (
-          <div key={index}>
-            <h3>{job.jobTitle}</h3>
-            <p>{job.jobDescription}</p>
-            <p>Qualifications: {job.qualifications}</p>
-            <p>Location: {job.location}</p>
-          </div>
-        ))}
-      </div>
+      {jobs.length === 0 ? (
+        <p>You haven't added a job</p>
+      ) : (
+        <div>
+          {jobs.map((job, index) => (
+            <div key={index} className='form-container'>
+              <Link to={{ pathname: `/jobPageRec/${index}`, state: { job } }}>
+                <p>Company Name: {job.companyName}</p>
+                <h3>{job.jobTitle}</h3>
+                <p>{job.jobDescription}</p>
+                <p>Qualifications: {job.qualifications}</p>
+                <p>Location: {job.location}</p>
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

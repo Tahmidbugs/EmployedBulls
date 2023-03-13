@@ -1,40 +1,45 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './style.css';
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     try {
       // Aikhane server side er shathe validation korte hobe jeta ami parina
-      console.log("Email: ", email, " Password: ", password);
+      console.log('Email: ', email, ' Password: ', password);
     } catch (err) {
-      setError("Incorrect email or password.");
+      setError('Incorrect email or password.');
     }
   };
 
   return (
-    <div>
-      <p1>If you don't have an account click here:</p1>
+    <div className='container'>
+      <h1>Log in</h1>
+      <h3>If you don't have an account click here:</h3>
       <br />
-      <Link to="/registration">
-        <button type="submit">Register as a Student</button>
+      <Link to='/registration'>
+        <button className='button button-student' type='submit'>
+          Register as a Student
+        </button>
       </Link>
-      <Link to="/registration">
-        <button type="submit">Register as a Recruiter</button>
+      <Link to='/registration'>
+        <button className='button button-recruiter' type='submit'>
+          Register as a Recruiter
+        </button>
       </Link>
       <br />
       <br />
-      <form onSubmit={handleSubmit}>
+      <form className='form' onSubmit={handleSubmit}>
         <label>
           Email:
           <input
-            type="email"
+            type='email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
           />
         </label>
@@ -42,16 +47,16 @@ function Login() {
         <label>
           Password:
           <input
-            type="password"
+            type='password'
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
           />
         </label>
         <br />
-        {error && <div style={{ color: "red" }}>{error}</div>}
+        {error && <div className='error'>{error}</div>}
         <br />
-        <button type="submit">Login</button>
+        <button type='submit'>Login</button>
       </form>
     </div>
   );

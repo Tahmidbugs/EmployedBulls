@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.form label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+label.rec-checkbox {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+label.rec-checkbox input[type='checkbox'] {
+  transform: scale(1.2);
+  margin-right: 10px;
+}
+
+.form input[type='text'],
+.form input[type='email'],
+.form input[type='password'] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.form button[type='submit'] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #008cba;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form button[type='submit']:hover {
+  background-color: #006080;
+}
+
+.form p {
+  margin-bottom: 10px;
+}
+
+.form .error {
+  color: red;
+}
+
+.button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button-student {
+  background-color: #ff6f69;
+}
+.button-student:hover {
+  background-color: #ff473e;
+}
+
+.button-recruiter {
+  background-color: #4d4dff;
+  color: white;
+}
+
+.button-recruiter:hover {
+  background-color: #1a1aff;
+}
