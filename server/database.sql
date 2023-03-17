@@ -1,4 +1,4 @@
-CREATE DATABASE UnitTestMySkills
+CREATE DATABASE EmployedBulls;
 
 
 
@@ -27,15 +27,6 @@ CREATE TABLE users (
   password VARCHAR(255)
 );
 
-
-
-
-CREATE TABLE userss (
-  id SERIAL PRIMARY KEY NOT NULL,
-  email VARCHAR(300) NOT NULL,
-    UNIQUE(email), 
-
-);
 
 ALTER TABLE users   
     ADD UNIQUE(email), ADD UNIQUE(username);

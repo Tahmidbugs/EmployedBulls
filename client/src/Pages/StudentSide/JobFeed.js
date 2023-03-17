@@ -12,46 +12,46 @@ const JobFeed = () => {
 
   const [jobs, setJobs] = useState([
     {
-      id: 1,
-      companyName: "The Hub",
-      position: "Student Assistant - Front Desk",
+      jobid: 1,
+      company_name: "The Hub",
+      position_name: "Student Assistant - Front Desk",
       hiring: 2,
       apply: "Apply Now",
       applied: false,
-      shortDescription:
+      jobdescription:
         "The Hub is seeking a student assistant to work the front desk...",
       location: "USF Tampa Campus",
     },
     {
-      id: 2,
-      companyName: "College of Engineering",
-      position: "Research Assistant",
+      jobid: 2,
+      company_name: "College of Engineering",
+      position_name: "Research Assistant",
       hiring: 1,
       apply: "Apply Now",
       applied: false,
-      shortDescription:
+      jobdescription:
         "The College of Engineering is seeking a research assistant to join...",
       location: "USF Tampa Campus",
     },
     {
-      id: 3,
-      companyName: "MUMA College of Business",
-      position: "Teaching Assistant",
+      jobid: 3,
+      company_name: "MUMA College of Business",
+      position_name: "Teaching Assistant",
       hiring: 3,
       apply: "Apply Now",
       applied: false,
-      shortDescription:
+      jobdescription:
         "The MUMA College of Business is seeking teaching assistants to help...",
       location: "USF Tampa Campus",
     },
     {
-      id: 4,
-      companyName: "Juniper Dining",
-      position: "Student Worker - Food Service",
+      jobid: 4,
+      company_name: "Juniper Dining",
+      position_name: "Student Worker - Food Service",
       hiring: 4,
       apply: "Apply Now",
       applied: false,
-      shortDescription:
+      jobdescription:
         "Juniper Dining is seeking student workers to help with food service...",
       location: "USF Tampa Campus",
     },
@@ -59,14 +59,15 @@ const JobFeed = () => {
   ]);
 
   useEffect(() => {
-    async function fetchJobs() {
+    const fetchJobs = async () => {
       try {
-        // const res = await axios.get("http://localhost:8800/api/jobs/");
-        // setJobs(res.data);
+        const res = await axios.get("http://localhost:8800/api/job/");
+        setJobs([...jobs, ...res.data]); // add the new data to the existing array
+        console.log("Successful");
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
-    }
+    };
 
     fetchJobs();
   }, []);
@@ -106,16 +107,18 @@ const JobFeed = () => {
         </Navbar.Collapse>
       </Navbar>
 
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+      >
         {filteredJobs.map((job) => (
           <JobComponent
             key={job.jobid}
-            companyName={job.companyName}
-            position={job.position}
+            company_name={job.company_name}
+            position_name={job.position_name}
             hiring={job.hiring}
             apply={job.apply}
             applied={job.applied}
-            shortDescription={job.shortDescription}
+            jobdescription={job.jobdescription}
           />
         ))}
       </div>
@@ -124,12 +127,12 @@ const JobFeed = () => {
 };
 
 const JobComponent = ({
-  companyName,
-  position,
+  company_name,
+  position_name,
   hiring,
   apply,
   applied,
-  shortDescription,
+  jobdescription,
 }) => {
   return (
     <div
@@ -144,8 +147,8 @@ const JobComponent = ({
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h2 style={{ margin: 0, fontWeight: "bold" }}>{companyName}</h2>
-        <h3 style={{ margin: 0, color: "#666" }}>{position}</h3>
+        <h2 style={{ margin: 0, fontWeight: "bold" }}>{company_name}</h2>
+        <h3 style={{ margin: 0, color: "#666" }}>{position_name}</h3>
       </div>
       <hr style={{ borderTop: "1px solid #ccc", margin: "10px 0" }} />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -169,7 +172,7 @@ const JobComponent = ({
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <p style={{ margin: 0, color: "#666" }}>Applied? {applied}</p>
       </div>
-      <p style={{ margin: "10px 0" }}>{shortDescription}</p>
+      <p style={{ margin: "10px 0" }}>{jobdescription}</p>
     </div>
   );
 };

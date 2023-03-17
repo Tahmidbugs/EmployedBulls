@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoute = require("./Routes/Auth");
+const jobRoute = require("./Routes/Job");
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(
   })
 );
 app.use("/api/auth", authRoute);
+app.use("/api/job", jobRoute);
 
 //twilio config
 

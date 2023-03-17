@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("./db");
+const db = require("../db");
 
-router.post("/jobs", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const {
       company_name,
@@ -30,10 +30,10 @@ router.post("/jobs", async (req, res) => {
   }
 });
 
-router.get("/jobs", async (req, res) => {
+router.get("/", async (req, res) => {
+  console.log("tried");
   try {
-    const allJobs = await pool.query("SELECT * FROM Job");
-
+    const allJobs = await db.query("SELECT * FROM job");
     res.status(200).json(allJobs.rows);
   } catch (err) {
     console.error(err.message);
