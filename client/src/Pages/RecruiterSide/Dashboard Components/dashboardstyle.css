@@ -1,0 +1,259 @@
+/* Navigation bar */
+
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: black;
+  color: white;
+  height: 100%;
+  padding: 20px;
+  margin-left: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-radius: 10px;
+}
+
+nav h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: white;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  padding: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+nav ul li:hover {
+  background-color: lightblue;
+  color: black;
+}
+
+/* Dashboard */
+
+.dashboard {
+  height: 100vh;
+  width: 80%;
+}
+
+.dashboard__content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.dashboard__section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  padding: 20px;
+  grid-area: unset;
+}
+
+.dashboard__section h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.dashboard__section--add-new-job {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-new-job-icon {
+  width: 80px;
+  height: 80px;
+  background-color: #ffa500;
+  color: white;
+  font-size: 48px;
+}
+
+.dashboard-header {
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.header-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 20px;
+  padding: 10px;
+  z-index: 9999;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+/* Inbox Part */
+
+.inbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inbox__message {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.inbox__input {
+  width: 80%;
+  margin: 10px;
+}
+
+.inbox__button {
+  margin: 10px;
+}
+
+/* JobAdded */
+
+.job-added {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.job-added__list {
+  width: 80%;
+  list-style-type: none;
+  padding: 0;
+  margin: 10px;
+}
+.job-added__list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.job-added__company {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.job-added__position {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.job-added__date {
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Upcoming Interviews */
+.upcoming-interviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upcoming-interviews__list {
+  width: 80%;
+  list-style-type: none;
+  padding: 0;
+  margin: 10px;
+}
+
+.upcoming-interviews__list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.upcoming-interviews__company {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.upcoming-interviews__position {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.upcoming-interviews__date {
+  font-size: 14px;
+  font-style: italic;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px 1fr;
+  }
+
+  .dashboard__content {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    padding: 10px;
+  }
+
+  .dashboard__section--add-new-job {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  .add-new-job-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 36px;
+  }
+
+  .inbox__message,
+  .inbox__input,
+  .inbox__button,
+  .job-added__list,
+  .job-added__list-item,
+  .job-added__company,
+  .job-added__position,
+  .job-added__date,
+  .upcoming-interviews__list,
+  .upcoming-interviews__list-item,
+  .upcoming-interviews__company,
+  .upcoming-interviews__position,
+  .upcoming-interviews__date {
+    width: 90%;
+  }
+}
