@@ -39,13 +39,13 @@ router.post("/login", async (req, res) => {
     // If a user was found, check the password
     const user = results.rows[0];
     // If the password is correct, check if the user is an admin
-    if (user.admin) {
+    if (user.isrecruiter) {
       // If the user is an admin, redirect to the admin page
-      console.log("is admin");
+      console.log("is recruiter");
       return res.status(200).json(user);
     } else {
       // If the user is not an admin, redirect to the home page
-      console.log("isnt admin");
+      console.log("isnt recruiter");
       return res.status(200).json(user);
     }
   } else {
@@ -57,39 +57,41 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// router.post("/register", async (req, res) => {
-//   const { email, username, password } = req.body;
+router.post("/register", async (req, res) => {
+  const { email, password, isrecruiter } = req.body;
 
-//   try {
-//     // Send verification code to the email address
-//     client.verify
-//       .services(verifySid)
-//       .verifications.create({ to: email, channel: "email" })
-//       .then((verification) => {
-//         // Store the email and a boolean value indicating whether the email has been verified in the database
-//         db.query(
-//           "INSERT INTO students (email,username,password) VALUES ($1, $2, $3)",
-//           [email, username, password]
-//         )
-//           .then((results) => {
-//             res
-//               .status(200)
-//               .json({ message: "Verification code sent to the email" });
-//           })
-//           .catch((err) => {
-//             console.error(err);
-//             res
-//               .status(500)
-//               .json({ message: "Failed to store the email in the database" });
-//           });
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//         res.status(500).json({ message: "Failed to send verification code" });
-//       });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(501).json("Couldnt register");
-//   }
-// });
+  try {
+    // Send verification code to the email address
+    // client.verify
+    //   .services(verifySid)
+    //   .verifications.create({ to: email, channel: "email" })
+    //   .then((verification) => {
+    //     // Store the email and a boolean value indicating whether the email has been verified in the database
+    db.query(
+      "INSERT INTO users (email,password, isrecruiter) VALUES ($1, $2, $3)",
+      [email, password, isrecruiter]
+    )
+      .then(async (results) => {
+        const res2 = await db.query("SELECT * FROM users WHERE email = $1", [
+          email,
+        ]);
+        res.status(200).json(res2.rows[0]);
+        console.log("inserted record in users table");
+      })
+      .catch((err) => {
+        console.error(err);
+        res
+          .status(500)
+          .json({ message: "Failed to store the email in the database" });
+      });
+    // })
+    // .catch((err) => {
+    //   console.error(err);
+    //   res.status(500).json({ message: "Failed to send verification code" });
+    // });
+  } catch (error) {
+    console.error(error);
+    res.status(501).json("Couldnt register");
+  }
+});
 module.exports = router;
