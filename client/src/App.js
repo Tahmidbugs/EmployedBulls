@@ -14,10 +14,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import StudentAppForm from "./Pages/StudentSide/StudentAppForm";
-import JobFeed from "./Pages/StudentSide/JobFeed";
-import StudentProfile from "./Pages/StudentSide/StudentProfile";
-import RecruiterJobFeed from "./Pages/RecruiterSide/RecruiReg/RecruiterJobFeed";
+import Chat from "./Pages/StudentSide/Chat";
 
 function App() {
   return (
@@ -33,6 +30,7 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/JobAdded" element={<JobAdded />} />
           <Route path="/InboxRec" element={<InboxWithStudentMessages />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
       </Router>
     </div>
