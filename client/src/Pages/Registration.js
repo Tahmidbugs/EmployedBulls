@@ -1,52 +1,55 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import './style.css';
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import "./style.css";
+import { registerCall } from "../ContextCalls";
+import { AuthContext } from "../Context/AuthContext";
 function Registration() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [verificationCode, setVerificationCode] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistered, setisRegistered] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [verified, setVerified] = useState(false);
-  const [isTeacher, setIsTeacher] = useState(false);
+  const [isrecruiter, setIsrecruiter] = useState(false);
   const navigate = useNavigate();
+  const { dispatch } = useContext(AuthContext);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      // const response = await axios.post(
-      //   'http://localhost:8800/api/auth/register',
-      //   { email, password, username }
-      // );
+      const credentials = {
+        email: email,
+        password: password,
+        isrecruiter: isrecruiter,
+      };
+      registerCall(credentials, dispatch);
       setIsLoading(false);
       // if (response.status === 200) {
-      if (isTeacher) {
-        navigate('/recruiter-reg');
+      if (isrecruiter) {
+        navigate("/recruiter-reg");
       } else {
-        navigate('/student-reg');
+        navigate("/student-reg");
       }
-      // }
-      console.log('asking for verification');
+
+      console.log("asking for verification");
     } catch (err) {
       setIsLoading(false);
       setError(err.message);
     }
   };
 
-  const handleVerification = async e => {
+  const handleVerification = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
       const response = await axios.post(
-        'http://localhost:8800/api/auth/verify',
+        "http://localhost:8800/api/auth/verify",
         {
           email,
           verificationCode,
@@ -56,7 +59,7 @@ function Registration() {
       if (response.status === 200) {
         setVerified(true);
       } else {
-        setError('Invalid verification code');
+        setError("Invalid verification code");
       }
     } catch (err) {
       setIsLoading(false);
@@ -92,70 +95,70 @@ function Registration() {
   // };
   /* eslint-enable */
   return (
-    <div className='container'>
+    <div className="container">
       <h1>Register</h1>
-      <form className='form' onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <label>
           Email:
           <input
-            type='email'
+            type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
-          {emailError && <div className='error'>{emailError}</div>}
+          {emailError && <div className="error">{emailError}</div>}
         </label>
         <br />
         <label>
           Password:
           <input
-            type='password'
+            type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <label>
-          Username:
-          <input
-            type='text'
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
-        </label>
+
         <br />
-        <label className='rec-checkbox'>
+        <label className="rec-checkbox">
           <input
-            type='checkbox'
-            checked={isTeacher}
-            onChange={() => setIsTeacher(!isTeacher)}
+            type="checkbox"
+            checked={isrecruiter}
+            onChange={() => setIsrecruiter(!isrecruiter)}
           />
           Register as a Recruiter
         </label>
+        <label className="rec-checkbox">
+          <input
+            type="checkbox"
+            checked={!isrecruiter}
+            onChange={() => setIsrecruiter(!isrecruiter)}
+          />
+          Register as a student
+        </label>
         <br />
-        <button type='submit' className='button'>
+        <button type="submit" className="button">
           Register
         </button>
-        <Link to='/login'>
-          <button type='submit' className='button'>
+        <Link to="/login">
+          <button type="submit" className="button">
             Have an account? Login
           </button>
         </Link>
       </form>
       {isRegistered && (
-        <form className='form' onSubmit={handleVerification}>
+        <form className="form" onSubmit={handleVerification}>
           <label>
             Verification code:
             <input
-              type='text'
+              type="text"
               value={verificationCode}
-              onChange={e => setVerificationCode(e.target.value)}
+              onChange={(e) => setVerificationCode(e.target.value)}
               required
             />
           </label>
-          <button type='submit' className='button' disabled={isLoading}>
-            {isLoading ? 'Verifying...' : 'Verify'}
+          <button type="submit" className="button" disabled={isLoading}>
+            {isLoading ? "Verifying..." : "Verify"}
           </button>
         </form>
       )}
