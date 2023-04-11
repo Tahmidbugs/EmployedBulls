@@ -49,7 +49,7 @@ const StudentProfile = () => {
         }}
       >
         <h2 style={{ margin: 0 }}>Set up your profile</h2>
-        <h4 style={{ margin: 0 }}>skip</h4>
+        <button style={{ margin: 0 }}>skip</button>
       </div>
       <div
         className="accountSetup"
@@ -186,7 +186,7 @@ const StudentProfile = () => {
           marginTop: "20px",
         }}
       >
-        Get started
+        Save changes 
       </button>
     </div>
   );

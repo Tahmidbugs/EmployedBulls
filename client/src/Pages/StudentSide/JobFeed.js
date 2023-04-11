@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 // import JobComponent from "../../Components/JobComponent";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import Drawer from 'react-modern-drawer'
+import 'react-modern-drawer/dist/index.css'
+
 
 const JobFeed = () => {
   const [filter, setFilter] = useState("all");
@@ -75,6 +78,11 @@ const JobFeed = () => {
   const filteredJobs =
     filter === "all" ? jobs : jobs.filter((job) => job.hiring > 0);
 
+    const [isOpen, setIsOpen] = React.useState(false)
+    const toggleDrawer = () => {
+        setIsOpen((prevState) => !prevState)
+    }
+
   return (
     <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       <Navbar
@@ -106,6 +114,15 @@ const JobFeed = () => {
           </Form>
         </Navbar.Collapse>
       </Navbar>
+      <button onClick={toggleDrawer}>Show</button>
+            <Drawer
+                open={isOpen}
+                onClose={toggleDrawer}
+                direction='right'
+                className='bla bla bla'
+            >
+                <div>Hello World</div>
+            </Drawer>
 
       <div
         style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}

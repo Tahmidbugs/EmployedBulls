@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { logoutCall } from "../../ContextCalls";
-import "./stu_style.css";
+import "./studentappform.css";
 // ApplicationForm: A few prefilled data, cover letter option,
 //         availabilities, disabilities etc
 const StudentAppForm = () => {
@@ -21,6 +21,8 @@ const StudentAppForm = () => {
   const [position, setPosition] = useState("");
   const [responsibilities, setResponsibilities] = useState("");
   const [hasWorkExperience, setHasWorkExperience] = useState(false);
+  const [disabilities, setDisabilities] = useState("");
+  const [availabilities, setAvailabilities] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -77,7 +79,7 @@ const StudentAppForm = () => {
         </label>
         <br />
         <label className="form-label">
-          Email:
+          University Email:
           <input
             type="email"
             value={email}
@@ -133,17 +135,6 @@ const StudentAppForm = () => {
         </label>
         <br />
 
-        {/* <label>
-  Work Experience:
-  <textarea 
-    value={workExperience} 
-    onChange={e => setWorkExperience(e.target.value)} 
-    rows={8} 
-    cols={30}
-    className="work-experience-input" 
-    required 
-  />
-</label> */}
         <label className="form-label">
           Do you have previous work experience?
           <input
@@ -196,12 +187,51 @@ const StudentAppForm = () => {
       </form>
       <br />
       <br />
+      <h1>Upload Resume:</h1>
+<label htmlFor="file-upload" className="custom-file-upload">
+  <i ></i> Upload Resume (PDF only)
+</label>
+<input
+  id="file-upload"
+  type="file"
+  onChange={handleChange}
+  accept=".pdf"
+  style={{ display: "none" }}
+/>
+{error && <div style={{ color: "red" }}>{error}</div>}
+{file && <div>{file.name}</div>}
       <br />
-      <h1>Upload Resume</h1>
-      <input type="file" onChange={handleChange} accept=".pdf" />
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      {file && <div>{file.name}</div>}
       <br />
+      <label htmlFor="file-upload" className="custom-file-upload">
+  <i ></i> Upload Cover Letter (Optional, PDF only)
+</label>
+<input
+  id="file-upload"
+  type="file"
+  onChange={handleChange}
+  accept=".pdf"
+  style={{ display: "none" }}
+/>
+{error && <div style={{ color: "red" }}>{error}</div>}
+{file && <div>{file.name}</div>}
+      <br />
+      <br />
+      <label className="form-label">
+        Disabilities(if any):
+        <textarea
+          value={disabilities}
+          className="form-input"
+          onChange={(e) => setDisabilities(e.target.value)}
+        />
+      </label>
+      <label className="form-label">
+        Availabilities for Work:
+        <textarea
+          value={availabilities}
+          className="form-input"
+          onChange={(e) => setAvailabilities(e.target.value)}
+        />
+      </label>
       <br />
       <button type="submit">Submit</button>
     </div>

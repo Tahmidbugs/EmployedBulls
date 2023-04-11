@@ -7,6 +7,9 @@ import JobPage from "./Pages/RecruiterSide/RecruiReg/JobPage";
 import Dashboard from "./Pages/RecruiterSide/RecruiReg/Dashboard";
 import JobAdded from "./Pages/RecruiterSide/Dashboard Components/JobAdded";
 import InboxWithStudentMessages from "./Pages/RecruiterSide/Dashboard Components/InboxWithStudentMessages";
+import StudentDashboard from "./Pages/StudentSide/StudentDashboard";
+import StudentProfile from "./Pages/StudentSide/StudentProfile";
+import SavedJobs from "./Pages/StudentSide/SavedJobs";
 
 import {
   BrowserRouter as Router,
@@ -19,6 +22,9 @@ import Chat from "./Pages/StudentSide/Chat";
 import React, { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import { logoutCall } from "./ContextCalls";
+import StudentApplications from "./Pages/StudentSide/StudentApplications";
+import Job from "./Pages/StudentSide/Job";
+import JobFeed from "./Pages/StudentSide/JobFeed";
 
 function App() {
   const { user, dispatch } = useContext(AuthContext);
@@ -27,7 +33,7 @@ function App() {
   return (
     <div className="body">
       <Router>
-        <button
+        {/* <button
           style={{
             backgroundColor: "red",
             padding: 20,
@@ -39,7 +45,7 @@ function App() {
           onClick={() => logoutCall(dispatch)}
         >
           Logout
-        </button>
+        </button> */}
         <Routes>
           <Route
             exact
@@ -83,6 +89,12 @@ function App() {
           <Route path="/JobAdded" element={<JobAdded />} />
           <Route path="/InboxRec" element={<InboxWithStudentMessages />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/studentdashboard" element={<StudentDashboard />} />
+          <Route path ="/studentapplications" element={<StudentApplications />} />
+          <Route path ="/job" element={<Job />} />
+          <Route path ="/jobfeed" element={<JobFeed/>} />
+          <Route path="/studentprofile" element={<StudentProfile/>} />
+          <Route path="/savedjobs" element={<SavedJobs/>} />
         </Routes>
       </Router>
     </div>

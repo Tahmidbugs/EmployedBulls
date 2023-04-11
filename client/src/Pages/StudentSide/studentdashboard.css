@@ -1,0 +1,81 @@
+body {
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #001f3f;
+    color: white;
+    padding: 16px;
+  }
+  
+  nav button {
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 16px;
+  }
+  
+  nav button:hover {
+    text-decoration: underline;
+  }
+  
+  div > p {
+    margin: 0;
+    font-size: 20px;
+    padding: 8px;
+    background-color: white;
+  }
+  
+  div > div {
+    margin: 16px 0;
+  }
+  
+  div > div > h2 {
+    margin: 0;
+    padding: 8px;
+    background-color: #001f3f;
+    color: white;
+  }
+  
+  div > div > div {
+    padding: 16px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  div > div > div > p {
+    margin: 8px 0;
+    font-size: 16px;
+  }
+  
+  div > div > div > div {
+    margin-top: 16px;
+    border-top: 1px solid #ccc;
+    padding-top: 16px;
+  }
+  
+  div > div > div > div > p {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  
+  div > div > div > div > p:first-child {
+    font-weight: bold;
+  }
+  
+  div > div > div > div > p:nth-child(2) {
+    color: #666;
+  }
+  
+  div > div > div > div > p:last-child {
+    font-style: italic;
+    color: #666;
+  }
+  
