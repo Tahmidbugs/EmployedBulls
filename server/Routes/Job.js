@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  console.log("tried");
+  console.log("getting all jobs");
   try {
     const allJobs = await db.query("SELECT * FROM job");
     res.status(200).json(allJobs.rows);

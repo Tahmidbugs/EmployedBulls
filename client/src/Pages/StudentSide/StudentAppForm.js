@@ -1,32 +1,71 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { logoutCall } from "../../ContextCalls";
-
+import { Container, Form, Button } from "react-bootstrap";
+import { useDropzone } from "react-dropzone";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const StudentAppForm = () => {
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [studentId, setStudentId] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [GPA, setGPA] = useState("");
+  const [resume, setResume] = useState(null);
+
   const [major, setMajor] = useState("");
-  const [workExperience, setWorkExperience] = useState("");
+  // const [workExperience, setWorkExperience] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [status, setStatus] = useState("");
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [position, setPosition] = useState("");
-  const [responsibilities, setResponsibilities] = useState("");
-  const [hasWorkExperience, setHasWorkExperience] = useState(false);
-  const [disabilities, setDisabilities] = useState("");
-  const [availabilities, setAvailabilities] = useState("");
-  const [jobTitle, setJobTitle] = useState("");
-  const [employmentLength, setEmploymentLength] = useState("");
+  const [workExperience, setWorkExperience] = useState({
+    hasWorkExperience: false,
+    companyName: "",
+    position: "",
+    responsibilities: "",
+    startYear: "",
+    endYear: "",
+  });
 
-  const handleSubmit = (event) => {
+  const apiKey = "YOUR_AFFINDA_API_KEY";
+
+  // Function to handle file upload
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+    if (!resume) {
+      setError("Please select a file.");
+      return;
+    }
+    console.log(resume);
+
+    const formData = new FormData();
+    formData.append("file", resume);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8800/uploadresume",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      // do something with response data
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedIn"));
+    const password = loggedInUser.password;
+    const requestData = {
       fullName,
       studentId,
       email,
@@ -35,20 +74,24 @@ const StudentAppForm = () => {
       GPA,
       major,
       workExperience,
-      additionalInfo
-    );
-    setStatus("Application submitted successfully!");
+      resume,
+      password,
+    };
+    try {
+      console.log(requestData);
+      await axios.post("http://localhost:8800/insert-student", requestData);
+      navigate("/jobfeed");
+    } catch (err) {
+      console.error(err);
+      setStatus("Error submitting application");
+    }
   };
 
   const handleChange = (event) => {
     const selectedFile = event.target.files[0];
-    if (selectedFile.type === "application/pdf") {
-      setFile(selectedFile);
-      setError("");
-    } else {
-      setFile(null);
-      setError("Invalid file type. Please upload a PDF file.");
-    }
+    console.log(selectedFile);
+
+    setResume(selectedFile);
   };
 
   const { dispatch } = useContext(AuthContext);
@@ -73,7 +116,20 @@ const StudentAppForm = () => {
         >
           On-Campus Job Application Form
         </h1>
+        <div>
+          <h4>Upload your resume</h4>
 
+          <div>
+            <input type="file" onChange={handleChange} />
+            {!resume && (
+              <p>
+                Drag and drop your resume file here, or click to select file
+              </p>
+            )}
+          </div>
+
+          {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
         <label style={{ display: "flex", flexDirection: "column" }}>
           <span style={{ marginBottom: "0.5rem" }}>Full Name:</span>
           <input
@@ -191,7 +247,6 @@ const StudentAppForm = () => {
             required
           />
         </label>
-
         <label style={{ display: "flex", flexDirection: "column" }}>
           <span style={{ marginBottom: "0.5rem" }}>
             Do you have any work experience?
@@ -202,8 +257,13 @@ const StudentAppForm = () => {
               id="yes"
               name="hasWorkExperience"
               value="yes"
-              checked={hasWorkExperience === true}
-              onChange={() => setHasWorkExperience(true)}
+              checked={workExperience.hasWorkExperience === true}
+              onChange={() =>
+                setWorkExperience({
+                  ...workExperience,
+                  hasWorkExperience: true,
+                })
+              }
               style={{ marginRight: "0.5rem" }}
             />
             <label htmlFor="yes" style={{ marginRight: "1rem" }}>
@@ -214,21 +274,31 @@ const StudentAppForm = () => {
               id="no"
               name="hasWorkExperience"
               value="no"
-              checked={hasWorkExperience === false}
-              onChange={() => setHasWorkExperience(false)}
+              checked={workExperience.hasWorkExperience === false}
+              onChange={() =>
+                setWorkExperience({
+                  ...workExperience,
+                  hasWorkExperience: false,
+                })
+              }
             />
             <label htmlFor="no">No</label>
           </div>
         </label>
 
-        {hasWorkExperience && (
+        {workExperience.hasWorkExperience && (
           <div>
             <label style={{ display: "flex", flexDirection: "column" }}>
               <span style={{ marginBottom: "0.5rem" }}>Company Name:</span>
               <input
                 type="text"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
+                value={workExperience.companyName}
+                onChange={(e) =>
+                  setWorkExperience({
+                    ...workExperience,
+                    companyName: e.target.value,
+                  })
+                }
                 style={{
                   padding: "0.5rem",
                   borderRadius: "5px",
@@ -240,11 +310,16 @@ const StudentAppForm = () => {
               />
             </label>
             <label style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ marginBottom: "0.5rem" }}>Job Title:</span>
+              <span style={{ marginBottom: "0.5rem" }}>Position:</span>
               <input
                 type="text"
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
+                value={workExperience.position}
+                onChange={(e) =>
+                  setWorkExperience({
+                    ...workExperience,
+                    position: e.target.value,
+                  })
+                }
                 style={{
                   padding: "0.5rem",
                   borderRadius: "5px",
@@ -255,13 +330,59 @@ const StudentAppForm = () => {
                 required
               />
             </label>
-
             <label style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ marginBottom: "0.5rem" }}>Employment Length:</span>
+              <span style={{ marginBottom: "0.5rem" }}>Responsibilities:</span>
+              <textarea
+                value={workExperience.responsibilities}
+                onChange={(e) =>
+                  setWorkExperience({
+                    ...workExperience,
+                    responsibilities: e.target.value,
+                  })
+                }
+                style={{
+                  padding: "0.5rem",
+                  borderRadius: "5px",
+                  border: "none",
+                  marginBottom: "1rem",
+                  width: "100%",
+                  minHeight: "10rem",
+                }}
+                required
+              />
+            </label>
+            <label style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ marginBottom: "0.5rem" }}>Start Year:</span>
               <input
                 type="text"
-                value={employmentLength}
-                onChange={(e) => setEmploymentLength(e.target.value)}
+                value={workExperience.startYear}
+                onChange={(e) =>
+                  setWorkExperience({
+                    ...workExperience,
+                    startYear: e.target.value,
+                  })
+                }
+                style={{
+                  padding: "0.5rem",
+                  borderRadius: "5px",
+                  border: "none",
+                  marginBottom: "1rem",
+                  width: "100%",
+                }}
+                required
+              />
+            </label>
+            <label style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ marginBottom: "0.5rem" }}>End Year:</span>
+              <input
+                type="text"
+                value={workExperience.endYear}
+                onChange={(e) =>
+                  setWorkExperience({
+                    ...workExperience,
+                    endYear: e.target.value,
+                  })
+                }
                 style={{
                   padding: "0.5rem",
                   borderRadius: "5px",
