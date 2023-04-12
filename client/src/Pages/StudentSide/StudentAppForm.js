@@ -1,9 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { logoutCall } from "../../ContextCalls";
-import "./studentappform.css";
-// ApplicationForm: A few prefilled data, cover letter option,
-//         availabilities, disabilities etc
+
 const StudentAppForm = () => {
   const [fullName, setFullName] = useState("");
   const [studentId, setStudentId] = useState("");
@@ -23,6 +21,8 @@ const StudentAppForm = () => {
   const [hasWorkExperience, setHasWorkExperience] = useState(false);
   const [disabilities, setDisabilities] = useState("");
   const [availabilities, setAvailabilities] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [employmentLength, setEmploymentLength] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,190 +50,245 @@ const StudentAppForm = () => {
       setError("Invalid file type. Please upload a PDF file.");
     }
   };
+
   const { dispatch } = useContext(AuthContext);
 
   return (
-    <div className="container">
-      <form className="form" onSubmit={handleSubmit}>
-        <h1 className="form-title">On-Campus Job Application Form</h1>
-        <label className="form-label">
-          Full Name:
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "50%",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "2rem",
+            marginBottom: "2rem",
+            fontWeight: "bold",
+          }}
+        >
+          On-Campus Job Application Form
+        </h1>
+
+        <label style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ marginBottom: "0.5rem" }}>Full Name:</span>
           <input
             type="text"
             value={fullName}
-            className="form-input"
             onChange={(e) => setFullName(e.target.value)}
+            style={{
+              padding: "0.5rem",
+              borderRadius: "5px",
+              border: "none",
+              marginBottom: "1rem",
+              width: "100%",
+            }}
             required
           />
         </label>
-        <br />
-        <label className="form-label">
-          Student ID:
+
+        <label style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ marginBottom: "0.5rem" }}>Student ID:</span>
           <input
             type="text"
             value={studentId}
-            className="form-input"
             onChange={(e) => setStudentId(e.target.value)}
+            style={{
+              padding: "0.5rem",
+              borderRadius: "5px",
+              border: "none",
+              marginBottom: "1rem",
+              width: "100%",
+            }}
             required
           />
         </label>
-        <br />
-        <label className="form-label">
-          University Email:
+
+        <label style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ marginBottom: "0.5rem" }}>University Email:</span>
           <input
             type="email"
             value={email}
-            className="form-input"
             onChange={(e) => setEmail(e.target.value)}
+            style={{
+              padding: "0.5rem",
+              borderRadius: "5px",
+              border: "none",
+              marginBottom: "1rem",
+              width: "100%",
+            }}
             required
           />
         </label>
-        <br />
-        {/* For the phone number I am changing the type for now. Keu error dekhle eita thik kore nish khek */}
-        <label className="form-label">
-          Phone Number:
+        <label style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ marginBottom: "0.5rem" }}>Phone Number:</span>
           <input
-            className="form-input"
-            type="tel"
+            type="text"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
+            style={{
+              padding: "0.5rem",
+              borderRadius: "5px",
+              border: "none",
+              marginBottom: "1rem",
+              width: "100%",
+            }}
             required
           />
         </label>
-        <br />
-        <label className="form-label">
-          Address:
+
+        <label style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ marginBottom: "0.5rem" }}>Address:</span>
           <input
             type="text"
             value={address}
-            className="form-input"
             onChange={(e) => setAddress(e.target.value)}
+            style={{
+              padding: "0.5rem",
+              borderRadius: "5px",
+              border: "none",
+              marginBottom: "1rem",
+              width: "100%",
+            }}
             required
           />
         </label>
-        <br />
-        <label className="form-label">
-          GPA:
+
+        <label style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ marginBottom: "0.5rem" }}>GPA:</span>
           <input
             type="text"
             value={GPA}
-            className="form-input"
             onChange={(e) => setGPA(e.target.value)}
+            style={{
+              padding: "0.5rem",
+              borderRadius: "5px",
+              border: "none",
+              marginBottom: "1rem",
+              width: "100%",
+            }}
             required
           />
         </label>
-        <br />
-        <label className="form-label">
-          Major:
+
+        <label style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ marginBottom: "0.5rem" }}>Major:</span>
           <input
             type="text"
             value={major}
-            className="form-input"
             onChange={(e) => setMajor(e.target.value)}
+            style={{
+              padding: "0.5rem",
+              borderRadius: "5px",
+              border: "none",
+              marginBottom: "1rem",
+              width: "100%",
+            }}
             required
           />
         </label>
-        <br />
 
-        <label className="form-label">
-          Do you have previous work experience?
-          <input
-            type="checkbox"
-            checked={hasWorkExperience}
-            className="form-input"
-            onChange={() => setHasWorkExperience(!hasWorkExperience)}
-          />
+        <label style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ marginBottom: "0.5rem" }}>
+            Do you have any work experience?
+          </span>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <input
+              type="radio"
+              id="yes"
+              name="hasWorkExperience"
+              value="yes"
+              checked={hasWorkExperience === true}
+              onChange={() => setHasWorkExperience(true)}
+              style={{ marginRight: "0.5rem" }}
+            />
+            <label htmlFor="yes" style={{ marginRight: "1rem" }}>
+              Yes
+            </label>
+            <input
+              type="radio"
+              id="no"
+              name="hasWorkExperience"
+              value="no"
+              checked={hasWorkExperience === false}
+              onChange={() => setHasWorkExperience(false)}
+            />
+            <label htmlFor="no">No</label>
+          </div>
         </label>
-        <br />
-        {hasWorkExperience && (
-          <>
-            <>
-              <label className="form-label">
-                Company Name:
-                <input
-                  type="text"
-                  value={companyName}
-                  className="form-input"
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  required
-                />
-              </label>
-              <br />
-              <label className="form-label">
-                Position:
-                <input
-                  type="text"
-                  value={position}
-                  className="form-input"
-                  onChange={(e) => setPosition(e.target.value)}
-                  required
-                />
-              </label>
 
-              <br />
-            </>
-            <label className="form-label">
-              Additional Information:
-              <textarea
-                value={additionalInfo}
-                className="form-input"
-                onChange={(e) => setAdditionalInfo(e.target.value)}
+        {hasWorkExperience && (
+          <div>
+            <label style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ marginBottom: "0.5rem" }}>Company Name:</span>
+              <input
+                type="text"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                style={{
+                  padding: "0.5rem",
+                  borderRadius: "5px",
+                  border: "none",
+                  marginBottom: "1rem",
+                  width: "100%",
+                }}
+                required
               />
             </label>
-            <br />
-          </>
+            <label style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ marginBottom: "0.5rem" }}>Job Title:</span>
+              <input
+                type="text"
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+                style={{
+                  padding: "0.5rem",
+                  borderRadius: "5px",
+                  border: "none",
+                  marginBottom: "1rem",
+                  width: "100%",
+                }}
+                required
+              />
+            </label>
+
+            <label style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ marginBottom: "0.5rem" }}>Employment Length:</span>
+              <input
+                type="text"
+                value={employmentLength}
+                onChange={(e) => setEmploymentLength(e.target.value)}
+                style={{
+                  padding: "0.5rem",
+                  borderRadius: "5px",
+                  border: "none",
+                  marginBottom: "1rem",
+                  width: "100%",
+                }}
+                required
+              />
+            </label>
+          </div>
         )}
-        {status && <div>{status}</div>}
+
+        <button
+          type="submit"
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+            padding: "0.5rem",
+            borderRadius: "5px",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Submit
+        </button>
       </form>
-      <br />
-      <br />
-      <h1>Upload Resume:</h1>
-<label htmlFor="file-upload" className="custom-file-upload">
-  <i ></i> Upload Resume (PDF only)
-</label>
-<input
-  id="file-upload"
-  type="file"
-  onChange={handleChange}
-  accept=".pdf"
-  style={{ display: "none" }}
-/>
-{error && <div style={{ color: "red" }}>{error}</div>}
-{file && <div>{file.name}</div>}
-      <br />
-      <br />
-      <label htmlFor="file-upload" className="custom-file-upload">
-  <i ></i> Upload Cover Letter (Optional, PDF only)
-</label>
-<input
-  id="file-upload"
-  type="file"
-  onChange={handleChange}
-  accept=".pdf"
-  style={{ display: "none" }}
-/>
-{error && <div style={{ color: "red" }}>{error}</div>}
-{file && <div>{file.name}</div>}
-      <br />
-      <br />
-      <label className="form-label">
-        Disabilities(if any):
-        <textarea
-          value={disabilities}
-          className="form-input"
-          onChange={(e) => setDisabilities(e.target.value)}
-        />
-      </label>
-      <label className="form-label">
-        Availabilities for Work:
-        <textarea
-          value={availabilities}
-          className="form-input"
-          onChange={(e) => setAvailabilities(e.target.value)}
-        />
-      </label>
-      <br />
-      <button type="submit">Submit</button>
     </div>
   );
 };
