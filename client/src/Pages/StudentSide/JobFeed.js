@@ -2,9 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 // import JobComponent from "../../Components/JobComponent";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-import Drawer from 'react-modern-drawer'
-import 'react-modern-drawer/dist/index.css'
-
+import Drawer from "react-modern-drawer";
+import "react-modern-drawer/dist/index.css";
 
 const JobFeed = () => {
   const [filter, setFilter] = useState("all");
@@ -78,10 +77,12 @@ const JobFeed = () => {
   const filteredJobs =
     filter === "all" ? jobs : jobs.filter((job) => job.hiring > 0);
 
-    const [isOpen, setIsOpen] = React.useState(false)
-    const toggleDrawer = () => {
-        setIsOpen((prevState) => !prevState)
-    }
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [info, setInfo] = React.useState({});
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+  const [isApplied, setIsApplied] = React.useState(false);
 
   return (
     <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
@@ -115,14 +116,14 @@ const JobFeed = () => {
         </Navbar.Collapse>
       </Navbar>
       <button onClick={toggleDrawer}>Show</button>
-            <Drawer
-                open={isOpen}
-                onClose={toggleDrawer}
-                direction='right'
-                className='bla bla bla'
-            >
-                <div>Hello World</div>
-            </Drawer>
+      <Drawer
+        open={isOpen}
+        onClose={toggleDrawer}
+        direction="right"
+        style={{ backgroundColor: "grey", width: "50%", color: "black" }}
+      >
+        <JobPage info={info} />
+      </Drawer>
 
       <div
         style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
@@ -136,6 +137,8 @@ const JobFeed = () => {
             apply={job.apply}
             applied={job.applied}
             jobdescription={job.jobdescription}
+            toggleDrawer={toggleDrawer}
+            setInfo={setInfo}
           />
         ))}
       </div>
@@ -150,6 +153,8 @@ const JobComponent = ({
   apply,
   applied,
   jobdescription,
+  toggleDrawer,
+  setInfo,
 }) => {
   return (
     <div
@@ -161,6 +166,17 @@ const JobComponent = ({
         margin: "20px",
         maxWidth: "400px",
         fontFamily: "sans-serif",
+      }}
+      onClick={() => {
+        toggleDrawer();
+        setInfo({
+          jobdescription,
+          company_name,
+          position_name,
+          hiring,
+          apply,
+          applied,
+        });
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -194,4 +210,105 @@ const JobComponent = ({
   );
 };
 
+const JobPage = ({ info }) => {
+  const [isApplied, setIsApplied] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+
+  const handleApply = () => {
+    setIsApplied(true);
+  };
+
+  const handleSave = () => {
+    setIsSaved(true);
+  };
+
+  return (
+    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginBottom: "40px",
+        }}
+      >
+        <h1 style={{ fontSize: "2.2rem", fontWeight: "bold" }}>
+          {info.company_name}
+        </h1>
+        <h2 style={{ fontSize: "1.8rem", color: "#666" }}>
+          {info.position_name}
+        </h2>
+      </div>
+
+      <div style={{ marginBottom: "40px" }}>
+        <h3
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          Job Description
+        </h3>
+        <p style={{ lineHeight: "1.6" }}>{info.jobdescription}</p>
+      </div>
+
+      <hr style={{ borderTop: "1px solid #ccc", margin: "40px 0" }} />
+
+      <div style={{ marginBottom: "40px" }}>
+        <h3
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          Hiring
+        </h3>
+        <p style={{ lineHeight: "1.6" }}>
+          {info.hiring} student{info.hiring > 1 ? "s" : ""}
+        </p>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <button
+          style={{
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            padding: "12px 20px",
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            cursor: "pointer",
+            outline: "none",
+            transition: "background-color 0.3s ease",
+          }}
+          onClick={handleApply}
+          disabled={isApplied}
+        >
+          {isApplied ? "Applied" : info.apply}
+        </button>
+        <button
+          style={{
+            backgroundColor: "#fff",
+            color: "#4CAF50",
+            border: "1px solid #4CAF50",
+            borderRadius: "5px",
+            padding: "12px 20px",
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            cursor: "pointer",
+            outline: "none",
+            transition: "background-color 0.3s ease",
+          }}
+          onClick={handleSave}
+          disabled={isSaved}
+        >
+          {isSaved ? "Saved" : "Save"}
+        </button>
+      </div>
+    </div>
+  );
+};
 export default JobFeed;
