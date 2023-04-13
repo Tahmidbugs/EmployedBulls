@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "formik": "^2.2.9",
+    "react-modern-drawer": "^1.2.0",
     "yup": "^0.32.11"
   }
 }

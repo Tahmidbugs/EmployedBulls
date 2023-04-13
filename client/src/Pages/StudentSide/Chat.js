@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-
+import './chatstyle.css';
 const socket = io('http://localhost:8800', {
   withCredentials: false,
 });
@@ -42,30 +42,27 @@ const Chat = ({ senderId = 12, receiverId = 21 }) => {
   };
 
   return (
-    <div>
-      <ul>
+    <div className='chat-container'>
+      <ul className='chat-history'>
         {chatHistory.map((msg, index) => {
           console.log('sender is:', msg.sender_id, 'sender now', senderId);
           return (
             <li
               key={index}
-              style={{
-                backgroundColor: `${
-                  msg.sender_id == senderId
-                    ? 'blue'
-                    : msg.sender_id
-                    ? 'green'
-                    : 'blue'
-                }`,
-                padding: 20,
-              }}
+              className={`chat-message ${
+                msg.sender_id == senderId
+                  ? 'sent'
+                  : msg.sender_id
+                  ? 'received'
+                  : 'sent'
+              }`}
             >
               {msg.message}
             </li>
           );
         })}
       </ul>
-      <form onSubmit={handleSendMessage}>
+      <form onSubmit={handleSendMessage} className='chat-input'>
         <input
           type='text'
           value={message}
@@ -76,5 +73,4 @@ const Chat = ({ senderId = 12, receiverId = 21 }) => {
     </div>
   );
 };
-
 export default Chat;
