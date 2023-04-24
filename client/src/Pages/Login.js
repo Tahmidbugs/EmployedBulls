@@ -29,16 +29,7 @@ function Login() {
       <h1>Log in</h1>
       <h3>If you don't have an account click here:</h3>
       <br />
-      <Link to="/registration">
-        <button className="button button-student" type="submit">
-          Register as a Student
-        </button>
-      </Link>
-      <Link to="/registration">
-        <button className="button button-recruiter" type="submit">
-          Register as a Recruiter
-        </button>
-      </Link>
+
       <br />
       <br />
       <form className="form" onSubmit={handleSubmit}>
@@ -66,6 +57,22 @@ function Login() {
         <br />
         <button type="submit">Login</button>
       </form>
+      {/* dont have an account? register */}
+      <Link to="/registration">
+        Don't have an account?
+        <button
+          className="registerButton"
+          style={{
+            border: "none",
+            color: "blue",
+            textDecoration: "underline",
+            cursor: "pointer",
+            backgroundColor: "transparent",
+          }}
+        >
+          Register
+        </button>
+      </Link>
     </div>
   );
 }

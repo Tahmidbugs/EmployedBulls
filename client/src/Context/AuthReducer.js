@@ -9,7 +9,7 @@ export const AuthReducer = (state, action) => {
       };
     case "LOGIN_SUCCESS":
       localStorage.setItem("loggedIn", JSON.stringify(action.payload));
-      console.log("LOGIN SUCCESS CALLED");
+      console.log("LOGIN SUCCESS CALLED with data", action.payload);
       return {
         ...state,
         isFetching: false,

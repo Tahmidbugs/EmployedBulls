@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   error: null,
   user: loggedInUser,
   isrecruiter: false,
+  profilecomplete: false,
 };
 
 export const AuthContext = createContext(INITIAL_STATE);
@@ -22,6 +23,7 @@ export const AuthContextProvider = (props) => {
         isFetching: state.isFetching,
         error: state.error,
         isrecruiter: state.isrecruiter,
+        profilecomplete: state.profilecomplete,
         dispatch,
       }}
     >

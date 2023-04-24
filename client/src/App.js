@@ -31,7 +31,7 @@ function App() {
 
   console.log("state of app changed, user now is: ", user);
   return (
-    <div className="body">
+    <div>
       <Router>
         {/* <button
           style={{
@@ -54,6 +54,8 @@ function App() {
               user ? (
                 user.isrecruiter ? (
                   <Dashboard />
+                ) : user.profilecomplete ? (
+                  <Navigate to="/jobfeed" />
                 ) : (
                   <StudentAppForm />
                 )
@@ -68,6 +70,8 @@ function App() {
               user ? (
                 user.isrecruiter ? (
                   <Dashboard />
+                ) : user.profilecomplete ? (
+                  <Navigate to="/jobfeed" />
                 ) : (
                   <StudentAppForm />
                 )
@@ -90,11 +94,27 @@ function App() {
           <Route path="/InboxRec" element={<InboxWithStudentMessages />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/studentdashboard" element={<StudentDashboard />} />
-          <Route path ="/studentapplications" element={<StudentApplications />} />
-          <Route path ="/job" element={<Job />} />
-          <Route path ="/jobfeed" element={<JobFeed/>} />
-          <Route path="/studentprofile" element={<StudentProfile/>} />
-          <Route path="/savedjobs" element={<SavedJobs/>} />
+          <Route
+            path="/studentapplications"
+            element={<StudentApplications />}
+          />
+          <Route path="/job" element={<Job />} />
+          <Route
+            path="/jobfeed"
+            element={
+              user ? (
+                user.profilecomplete ? (
+                  <JobFeed />
+                ) : (
+                  <StudentAppForm />
+                )
+              ) : (
+                <Login />
+              )
+            }
+          />
+          <Route path="/studentprofile" element={<StudentProfile />} />
+          <Route path="/savedjobs" element={<SavedJobs />} />
         </Routes>
       </Router>
     </div>

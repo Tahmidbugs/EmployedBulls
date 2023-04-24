@@ -89,7 +89,6 @@ app.use("/api/job", jobRoute);
 
 app.post("/insert-student", async (req, res) => {
   try {
-    console.log(req.body);
     const {
       fullName,
       studentId,
@@ -103,7 +102,7 @@ app.post("/insert-student", async (req, res) => {
       password,
     } = req.body;
 
-    const query = `
+    const insertQuery = `
       INSERT INTO students (
         student_id,
         full_name,
@@ -118,7 +117,7 @@ app.post("/insert-student", async (req, res) => {
       )
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     `;
-    const values = [
+    const insertValues = [
       studentId,
       fullName,
       email,
@@ -130,8 +129,16 @@ app.post("/insert-student", async (req, res) => {
       resume,
       password,
     ];
-    console.log(values);
-    await db.query(query, values);
+    await db.query(insertQuery, insertValues);
+    console.log("Student added successfully");
+    const updateQuery = `
+      UPDATE users
+      SET profilecomplete = true
+      WHERE email = $1
+    `;
+    const updateValues = [email];
+    await db.query(updateQuery, updateValues);
+    console.log("User profile complete");
 
     res.status(201).send("Student added successfully");
   } catch (err) {
