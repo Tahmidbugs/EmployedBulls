@@ -53,7 +53,11 @@ function App() {
             element={
               user ? (
                 user.isrecruiter ? (
-                  <Dashboard />
+                  user.profilecomplete ? (
+                    <Navigate to="/Dashboard" />
+                  ) : (
+                    <RecruiterReg />
+                  )
                 ) : user.profilecomplete ? (
                   <Navigate to="/jobfeed" />
                 ) : (
@@ -89,7 +93,10 @@ function App() {
           <Route path="/student-reg" element={<StudentAppForm />} />
           <Route path="/recJobFeed" element={<RecruiterJobFeed />} />
           <Route path="/jobPageRec/:id" element={<JobPage />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route
+            path="/Dashboard"
+            element={user ? <Dashboard /> : <Navigate to="/registration" />}
+          />
           <Route path="/JobAdded" element={<JobAdded />} />
           <Route path="/InboxRec" element={<InboxWithStudentMessages />} />
           <Route path="/chat" element={<Chat />} />

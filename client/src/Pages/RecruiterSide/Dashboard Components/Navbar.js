@@ -22,6 +22,7 @@ const Nav = () => {
         backgroundColor: "#252525",
 
         padding: "1rem",
+        // height: "100vh",
         width: "15%",
       }}
     >

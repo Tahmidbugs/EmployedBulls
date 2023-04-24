@@ -5,7 +5,12 @@ import "./style.css";
 import { registerCall } from "../ContextCalls";
 import { AuthContext } from "../Context/AuthContext";
 import Webcam from "react-webcam"; // or another camera library
-
+import {
+  BsFillEmojiSunglassesFill,
+  BsFillEmojiSmileFill,
+  BsFillEmojiNeutralFill,
+  BsFillEmojiFrownFill,
+} from "react-icons/bs";
 function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -117,12 +122,71 @@ function Registration() {
         <br />
         <label>
           Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              position: "relative",
+            }}
+          >
+            <div style={{ position: "relative" }}>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              {password.length < 3 && (
+                <BsFillEmojiFrownFill
+                  size={30}
+                  color="#FF3953"
+                  style={{
+                    position: "absolute",
+                    top: "40%",
+                    right: "10px",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+              {password.length >= 3 && password.length < 5 && (
+                <BsFillEmojiNeutralFill
+                  size={30}
+                  color="#FF3953"
+                  style={{
+                    position: "absolute",
+                    top: "40%",
+                    right: "10px",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+              {password.length >= 5 && password.length < 7 && (
+                <BsFillEmojiSmileFill
+                  size={30}
+                  color="#FF3953"
+                  style={{
+                    position: "absolute",
+                    top: "40%",
+                    right: "10px",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+              {password.length >= 7 && (
+                <BsFillEmojiSunglassesFill
+                  size={30}
+                  color="#FF3953"
+                  style={{
+                    position: "absolute",
+                    top: "40%",
+                    right: "10px",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+            </div>
+          </div>
         </label>
 
         <br />
