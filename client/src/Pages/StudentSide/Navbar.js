@@ -6,9 +6,9 @@ import { FcBusiness, FcSettings, FcList } from "react-icons/fc";
 import { AiFillMessage } from "react-icons/ai";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { ImExit } from "react-icons/im";
-import { AuthContext } from "../../../Context/AuthContext";
+import { AuthContext } from "../../Context/AuthContext";
 
-import { logoutCall } from "../../../ContextCalls";
+import { logoutCall } from "../../ContextCalls";
 
 const Nav = () => {
   const { user, dispatch } = useContext(AuthContext);
@@ -36,7 +36,7 @@ const Nav = () => {
         Employed Bulls
       </h2>
       <Link
-        to="/Dashboard"
+        to="/jobfeed"
         style={{
           color: "#fff",
           textDecoration: "none",
@@ -50,7 +50,7 @@ const Nav = () => {
         Dashboard
       </Link>
       <Link
-        to="/recJobFeed"
+        to="/jobfeed"
         style={{
           color: "#fff",
           textDecoration: "none",
@@ -59,7 +59,7 @@ const Nav = () => {
         }}
       >
         <FcBusiness size={20} style={{ color: "white", marginRight: "5" }} />
-        Recruiter Job Feed
+        Explore jobs
       </Link>
       <Link
         to="/JobAdded"
@@ -74,7 +74,7 @@ const Nav = () => {
           size={30}
           style={{ color: "silver", marginRight: "5" }}
         />
-        Job Added
+        Applied jobs
       </Link>
       <Link
         to="/inbox"

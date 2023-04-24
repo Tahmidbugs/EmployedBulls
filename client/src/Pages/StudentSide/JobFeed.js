@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 // import JobComponent from "../../Components/JobComponent";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
+import Nav from "./Navbar";
 
 const JobFeed = () => {
   const [filter, setFilter] = useState("all");
@@ -85,62 +85,44 @@ const JobFeed = () => {
   const [isApplied, setIsApplied] = React.useState(false);
 
   return (
-    <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-      <Navbar
-        bg="dark"
-        variant="dark"
-        expand="lg"
-        style={{ padding: "20px", marginBottom: "20px" }}
-      >
-        <Navbar.Brand href="#home">Employed Bulls</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Profile</Nav.Link>
-            <Nav.Link href="#link">Saved Jobs</Nav.Link>
-            <Nav.Link href="#link">Application Centre</Nav.Link>
-            <Nav.Link href="#link">Sign Out</Nav.Link>
-          </Nav>
-          <Form inline>
-            <FormControl
-              as="select"
-              onChange={handleFilterChange}
-              value={filter}
-              style={{ marginRight: "10px" }}
-            >
-              <option value="all">Display All Jobs</option>
-              <option value="hiring">Display Jobs Still Hiring</option>
-            </FormControl>
-            <Button variant="outline-success">Filter</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Navbar>
-      <button onClick={toggleDrawer}>Show</button>
-      <Drawer
-        open={isOpen}
-        onClose={toggleDrawer}
-        direction="right"
-        style={{ backgroundColor: "grey", width: "50%", color: "black" }}
-      >
-        <JobPage info={info} />
-      </Drawer>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      <Nav />
+      <div style={{ width: "60%" }}>
+        <Drawer
+          open={isOpen}
+          onClose={toggleDrawer}
+          direction="right"
+          style={{ backgroundColor: "grey", width: "50%", color: "black" }}
+        >
+          <JobPage info={info} />
+        </Drawer>
 
-      <div
-        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-      >
-        {filteredJobs.map((job) => (
-          <JobComponent
-            key={job.jobid}
-            company_name={job.company_name}
-            position_name={job.position_name}
-            hiring={job.hiring}
-            apply={job.apply}
-            applied={job.applied}
-            jobdescription={job.jobdescription}
-            toggleDrawer={toggleDrawer}
-            setInfo={setInfo}
-          />
-        ))}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          {filteredJobs.map((job) => (
+            <JobComponent
+              key={job.jobid}
+              company_name={job.company_name}
+              position_name={job.position_name}
+              hiring={job.hiring}
+              apply={job.apply}
+              applied={job.applied}
+              jobdescription={job.jobdescription}
+              toggleDrawer={toggleDrawer}
+              setInfo={setInfo}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
