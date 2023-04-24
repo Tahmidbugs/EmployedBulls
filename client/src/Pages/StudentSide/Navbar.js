@@ -7,7 +7,7 @@ import { AiFillMessage } from "react-icons/ai";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { ImExit } from "react-icons/im";
 import { AuthContext } from "../../Context/AuthContext";
-
+import Logo from "../../Assets/logo.gif";
 import { logoutCall } from "../../ContextCalls";
 
 const Nav = () => {
@@ -25,16 +25,7 @@ const Nav = () => {
         width: "15%",
       }}
     >
-      <h2
-        style={{
-          color: "#fff",
-          fontWeight: "bold",
-          fontSize: "1.5rem",
-          marginBottom: "2rem",
-        }}
-      >
-        Employed Bulls
-      </h2>
+      <img src={Logo} style={{ width: "100%" }} />
       <Link
         to="/jobfeed"
         style={{
