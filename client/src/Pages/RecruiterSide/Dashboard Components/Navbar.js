@@ -6,13 +6,16 @@ import { FcBusiness, FcSettings, FcList } from 'react-icons/fc';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 const Nav = () => {
   return (
-    <div style={{ width: '20%' }}>
+    <div>
       <nav>
         <h1>EmployedBulls</h1>
         <ul>
           <li>
             <Link to='/Dashboard'>
-              <FcList size={30} style={{ color: 'white', marginRight: '5' }} />
+              <FcList
+                size={30}
+                style={{ color: 'white', marginRight: '5px' }}
+              />
               Dashboard
             </Link>
           </li>
@@ -20,7 +23,7 @@ const Nav = () => {
             <Link to='/recJobFeed'>
               <FcBusiness
                 size={30}
-                style={{ color: 'white', marginRight: '5' }}
+                style={{ color: 'white', marginRight: '5px' }}
               />
               Recruiter Job Feed
             </Link>
@@ -29,7 +32,7 @@ const Nav = () => {
             <Link to='/JobAdded'>
               <IoIosAddCircleOutline
                 size={30}
-                style={{ color: 'silver', marginRight: '5' }}
+                style={{ color: 'silver', marginRight: '5px' }}
               />
               Job Added
             </Link>
@@ -38,7 +41,7 @@ const Nav = () => {
             <Link to='/InboxRec'>
               <FcSettings
                 size={30}
-                style={{ color: 'white', marginRight: '5' }}
+                style={{ color: 'white', marginRight: '5px' }}
               />
               Inbox
             </Link>

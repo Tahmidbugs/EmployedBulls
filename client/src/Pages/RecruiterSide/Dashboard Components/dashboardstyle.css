@@ -12,13 +12,16 @@ nav {
   overflow: hidden;
   white-space: nowrap;
   border-radius: 10px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-width: 220px;
 }
-
 nav h1 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-align: center;
   color: white;
 }
@@ -27,15 +30,23 @@ nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  position: absolute;
+  top: 10%;
+  left: 0;
 }
 
-nav ul li {
-  padding: 10px;
+nav li {
+  /* display: block; */
+  padding: 20px 10px;
   font-size: 1.2rem;
   cursor: pointer;
 }
 
-nav ul li:hover {
+nav li a {
+  color: yellow;
+}
+
+nav li:hover {
   background-color: lightblue;
   color: black;
 }
@@ -44,7 +55,14 @@ nav ul li:hover {
 
 .dashboard {
   height: 100vh;
-  width: 80%;
+  width: calc(100% - 220px);
+  border-radius: 0px;
+  border-width: 0px;
+  box-shadow: none;
+  margin-left: 220px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 .dashboard__content {
@@ -60,12 +78,14 @@ nav ul li:hover {
   background-color: #f2f2f2;
   border-radius: 5px;
   padding: 20px;
-  grid-area: unset;
+  /* margin-bottom: 20px; */
+  box-shadow: none;
 }
 
 .dashboard__section h2 {
   margin-bottom: 10px;
   font-size: 18px;
+  box-shadow: none;
 }
 
 .dashboard__section--add-new-job {
@@ -74,6 +94,7 @@ nav ul li:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: none;
 }
 
 .add-new-job-icon {
@@ -89,6 +110,8 @@ nav ul li:hover {
   align-items: center;
   background-color: #f0f0f0;
   padding: 10px;
+  box-shadow: none;
+  border-width: 0px;
 }
 
 .dashboard-header h1 {
@@ -106,6 +129,8 @@ nav ul li:hover {
   margin-right: 20px;
   padding: 10px;
   z-index: 9999;
+  box-shadow: none;
+  border: none;
 }
 
 .dashboard-grid {
