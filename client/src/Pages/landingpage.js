@@ -1,45 +1,28 @@
 import React from 'react';
+import Logo from '../Assets/logo.gif';
+// import { FontAwesomeIcon } from '@fortawesome/free-solid-svg-icons';
 
 function LandingPage() {
   return (
     <div style={{ backgroundColor: '#f8f8f8' }}>
-      <header style={{ backgroundColor: '#fff', padding: '20px' }}>
+      <header style={{ backgroundColor: '#242424', padding: '20px' }}>
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center',
-            maxWidth: '1200px',
-            margin: '0 auto',
+            // maxWidth: '850px',
+            // margin: '0 auto',
           }}
         >
-          <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+          {/* <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>
             EmployedBulls
-          </h1>
-          <nav>
-            <ul style={{ display: 'flex', listStyleType: 'none' }}>
-              <li style={{ marginRight: '20px' }}>
-                <a href='#' style={{ textDecoration: 'none', color: '#333' }}>
-                  Home
-                </a>
-              </li>
-              <li style={{ marginRight: '20px' }}>
-                <a href='#' style={{ textDecoration: 'none', color: '#333' }}>
-                  Features
-                </a>
-              </li>
-              <li style={{ marginRight: '20px' }}>
-                <a href='#' style={{ textDecoration: 'none', color: '#333' }}>
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a href='#' style={{ textDecoration: 'none', color: '#333' }}>
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </nav>
+          </h1> */}
+          <img
+            src={Logo}
+            alt='EmployedBulls'
+            style={{ maxWidth: '12.5%', height: 'auto' }}
+          />
         </div>
       </header>
       <section style={{ padding: '80px 0' }}>
@@ -53,15 +36,18 @@ function LandingPage() {
               marginBottom: '20px',
             }}
           >
-            Your Dream Job is Here
+            B<span style={{ color: 'red' }}>U</span>LLS never settle for less,
+            and neither do we
           </h1>
           <h2
             style={{ fontSize: '1.5rem', color: '#333', marginBottom: '50px' }}
           >
-            Join the thousands who have found their perfect job on EmployedBulls
+            Join the Bulls revolution: Empowering students, Connecting
+            recruiters
           </h2>
+          {/* <FontAwesomeIcon icon={faUsers} beat /> */}
           <a
-            href='#'
+            href='/registration'
             style={{
               backgroundColor: '#333',
               color: '#fff',

@@ -105,19 +105,10 @@ function App() {
             path='/studentapplications'
             element={<StudentApplications />}
           />
-          <Route path="/job" element={<Job />} />
-          <Route
-            path="/jobfeed"
-            element={
-              user ? 
-                  <JobFeed />
-              :
-                <Login />
-              
-            }
-          />
-          <Route path="/studentprofile" element={<StudentProfile />} />
-          <Route path="/savedjobs" element={<SavedJobs />} />
+          <Route path='/job' element={<Job />} />
+          <Route path='/jobfeed' element={user ? <JobFeed /> : <Login />} />
+          <Route path='/studentprofile' element={<StudentProfile />} />
+          <Route path='/savedjobs' element={<SavedJobs />} />
         </Routes>
       </Router>
     </div>
