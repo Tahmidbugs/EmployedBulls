@@ -119,9 +119,9 @@ const JobFeed = () => {
                 open={isOpen}
                 onClose={toggleDrawer}
                 direction='right'
-                className='bla bla bla'
+                
             >
-                <div>Hello World</div>
+                
             </Drawer>
 
       <div
