@@ -11,10 +11,11 @@ import Logo from "../../Assets/logo.gif";
 import { logoutCall } from "../../ContextCalls";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import { MdSpaceDashboard } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const { user, dispatch } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -27,7 +28,14 @@ const Nav = () => {
         width: "15%",
       }}
     >
-      <img src={Logo} style={{ width: "100%" }} />
+      <img
+        src={Logo}
+        style={{ width: "100%" }}
+        onClick={() => {
+          if (user.isrecruiter) navigate("/Dashboard");
+          else navigate("/studentdashboard");
+        }}
+      />
       <Link
         to="/studentdashboard"
         style={{
