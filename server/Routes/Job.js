@@ -20,8 +20,13 @@ router.post("/addJob", async (req, res) => {
 
     res.status(201).json(newJob.rows[0]);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ error: "Server error" });
+    if (err.message.includes("violates check constraint")) {
+      res
+        .status(400)
+        .json({ error: "Salary cannot be lower than state minimum wage" });
+    } else {
+      res.status(500).json({ error: "Server error" });
+    }
   }
 });
 

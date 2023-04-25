@@ -134,6 +134,11 @@ const AddJobModal = ({ handleModalClose }) => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response && err.response.data && err.response.data.error) {
+          alert(err.response.data.error);
+        } else {
+          alert("Something went wrong!");
+        }
       });
 
     // loading = false;
