@@ -99,6 +99,7 @@ app.post("/insert-student", async (req, res) => {
       major,
       workExperience,
       resume,
+      password,
     } = req.body;
 
     const insertQuery = `
@@ -111,10 +112,10 @@ app.post("/insert-student", async (req, res) => {
         gpa,
         major,
         work_experience,
-        resume
-        
+        resume,
+        password
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     `;
     const insertValues = [
       studentId,
@@ -126,7 +127,7 @@ app.post("/insert-student", async (req, res) => {
       major,
       workExperience,
       resume,
-      
+      password,
     ];
     await db.query(insertQuery, insertValues);
     console.log("Student added successfully");

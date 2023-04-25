@@ -83,7 +83,8 @@ const FormContainer = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedIn"));
+    const password = loggedInUser.password;
     const requestData = {
       fullName,
       studentId,
@@ -94,6 +95,7 @@ const FormContainer = () => {
       major,
       workExperience,
       resume,
+      password,
     };
     try {
       console.log(requestData);
