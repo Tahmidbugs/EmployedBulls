@@ -27,7 +27,7 @@ const Nav = () => {
     >
       <img src={Logo} style={{ width: "100%" }} />
       <Link
-        to="/jobfeed"
+        to="/studentdashboard"
         style={{
           color: "#fff",
           textDecoration: "none",

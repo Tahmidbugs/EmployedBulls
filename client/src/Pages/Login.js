@@ -12,17 +12,34 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      // Sanitize email and password fields
+      const sanitizedEmail = email.replace(/['";\\]/g, '');
+      const sanitizedPassword = password.replace(/['";\\]/g, '');
+
+      console.log("Sanitized email: ", sanitizedEmail);
+      console.log("Sanitized password: ", sanitizedPassword);
+      if(password==sanitizedPassword)
+      {
+        console.log("Password is same as before");
+      }
+      else
+      {
+        console.log("Password is different", password, sanitizedPassword);
+      }
+  
       const credentials = {
-        email: email,
-        password: password,
+        email: sanitizedEmail,
+        password: sanitizedPassword,
       };
+  
       loginCall(credentials, dispatch);
-      // Aikhane server side er shathe validation korte hobe jeta ami parina
-      console.log("Email: ", email, " Password: ", password);
+  
+      console.log("Email: ", sanitizedEmail, " Password: ", sanitizedPassword);
     } catch (err) {
       setError("Incorrect email or password.");
     }
   };
+  
 
   return (
     <div className="container">

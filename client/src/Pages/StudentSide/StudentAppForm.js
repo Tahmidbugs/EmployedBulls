@@ -274,6 +274,10 @@ const FormContainer = () => {
             </Form.Group>
           </div>
         )}
+         <div>
+    <label htmlFor="resume">Upload Resume:</label>
+    <input type="file" id="resume" name="resume" />
+  </div>
         <button
           variant="primary"
           type="submit"
@@ -286,8 +290,10 @@ const FormContainer = () => {
           Submit
         </button>
       </Form>
+      
     </div>
   );
+  
 };
 
 export default StudentAppForm;
