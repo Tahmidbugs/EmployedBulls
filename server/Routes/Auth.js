@@ -1,6 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const bcrypt = require("bcrypt");
 const router = require("express").Router();
+=======
+const bcrypt = require('bcrypt');
+const router = require('express').Router();
+>>>>>>> RecDash
 =======
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
@@ -35,9 +40,12 @@ const verifySid = process.env.VERIFY_SID;
 // });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 router.post("/register", async (req, res) => {
   const { email, password, isrecruiter, uid } = req.body;
 =======
+=======
+>>>>>>> RecDash
 router.post('/register', async (req, res) => {
   const { email, password, isrecruiter } = req.body;
 >>>>>>> RecDash
@@ -58,8 +66,13 @@ router.post('/register', async (req, res) => {
     //     // Store the email and a boolean value indicating whether the email has been verified in the database
     db.query(
 <<<<<<< HEAD
+<<<<<<< HEAD
       "INSERT INTO users (email,password, isrecruiter,uid) VALUES ($1, $2, $3,$4)",
       [email, hashedPassword, isrecruiter, uid]
+=======
+      'INSERT INTO users (email,password, isrecruiter) VALUES ($1, $2, $3)',
+      [email, hashedPassword, isrecruiter]
+>>>>>>> RecDash
 =======
       'INSERT INTO users (email,password, isrecruiter) VALUES ($1, $2, $3)',
       [email, hashedPassword, isrecruiter]
@@ -117,6 +130,7 @@ router.post('/login', async (req, res) => {
   } else {
     console.log(email, 'not found in database');
     return res.status(401).json({ error: 'Incorrect username or password' });
+<<<<<<< HEAD
   }
 });
 router.post("/login", async (req, res) => {
@@ -148,6 +162,8 @@ router.post("/login", async (req, res) => {
   } else {
     console.log(email, "not found in database");
     return res.status(401).json({ error: "Incorrect username or password" });
+=======
+>>>>>>> RecDash
   }
 });
 module.exports = router;
