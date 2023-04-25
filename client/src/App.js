@@ -19,12 +19,22 @@ import {
 } from "react-router-dom";
 import Chat from "./Pages/StudentSide/Chat";
 
+<<<<<<< HEAD
 import React, { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import { logoutCall } from "./ContextCalls";
 import StudentApplications from "./Pages/StudentSide/StudentApplications";
 import Job from "./Pages/StudentSide/Job";
 import JobFeed from "./Pages/StudentSide/JobFeed";
+=======
+import React, { useContext } from 'react';
+import { AuthContext } from './Context/AuthContext';
+import { logoutCall } from './ContextCalls';
+import StudentApplications from './Pages/StudentSide/StudentApplications';
+import Job from './Pages/StudentSide/Job';
+import JobFeed from './Pages/StudentSide/JobFeed';
+import LandingPage from './Pages/landingpage';
+>>>>>>> RecDash
 
 function App() {
   const { user, dispatch } = useContext(AuthContext);
@@ -105,10 +115,18 @@ function App() {
             path="/studentapplications"
             element={<StudentApplications />}
           />
+<<<<<<< HEAD
           <Route path="/job" element={<Job />} />
           <Route path="/jobfeed" element={user ? <JobFeed /> : <Login />} />
           <Route path="/studentprofile" element={<StudentProfile />} />
           <Route path="/savedjobs" element={<SavedJobs />} />
+=======
+          <Route path='/job' element={<Job />} />
+          <Route path='/jobfeed' element={<JobFeed />} />
+          <Route path='/studentprofile' element={<StudentProfile />} />
+          <Route path='/savedjobs' element={<SavedJobs />} />
+          <Route path='/landing' element={<LandingPage />} />
+>>>>>>> RecDash
         </Routes>
       </Router>
     </div>
