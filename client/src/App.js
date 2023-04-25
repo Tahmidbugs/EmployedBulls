@@ -109,15 +109,11 @@ function App() {
           <Route
             path="/jobfeed"
             element={
-              user ? (
-                user.profilecomplete ? (
+              user ? 
                   <JobFeed />
-                ) : (
-                  <StudentAppForm />
-                )
-              ) : (
+              :
                 <Login />
-              )
+              
             }
           />
           <Route path="/studentprofile" element={<StudentProfile />} />

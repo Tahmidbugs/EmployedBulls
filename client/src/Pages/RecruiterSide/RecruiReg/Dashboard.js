@@ -74,16 +74,10 @@ function Dashboard() {
               borderRadius: 0,
             }}
           >
-<<<<<<< HEAD
             <div className="dashboard__section dashboard__section--job-added">
               <h2>Job Summary</h2>
               {/* job list added by recruiter */}
               <Last2jobs addedJobs={addedJobs} />
-=======
-            <div className='dashboard__section dashboard__section--job-added'>
-              {/* <h2>Job Added</h2> */}
-              <JobAdded />
->>>>>>> RecDash
             </div>
 
             <div className="dashboard__section dashboard__section--job-added">

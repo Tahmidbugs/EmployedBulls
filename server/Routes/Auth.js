@@ -1,18 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 const bcrypt = require("bcrypt");
 const router = require("express").Router();
-=======
-const bcrypt = require('bcrypt');
-const router = require('express').Router();
->>>>>>> RecDash
-=======
-const bcrypt = require('bcrypt');
-const router = require('express').Router();
->>>>>>> RecDash
 // const twilio = require("twilio");
-const dotenv = require('dotenv');
-const db = require('../db');
+const dotenv = require("dotenv");
+const db = require("../db");
 
 dotenv.config();
 const accountSid = process.env.ACCOUNTSID;
@@ -39,16 +29,8 @@ const verifySid = process.env.VERIFY_SID;
 //     });
 // });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 router.post("/register", async (req, res) => {
   const { email, password, isrecruiter, uid } = req.body;
-=======
-=======
->>>>>>> RecDash
-router.post('/register', async (req, res) => {
-  const { email, password, isrecruiter } = req.body;
->>>>>>> RecDash
 
   try {
     // Generate salt for hashing
@@ -65,31 +47,21 @@ router.post('/register', async (req, res) => {
     //   .then((verification) => {
     //     // Store the email and a boolean value indicating whether the email has been verified in the database
     db.query(
-<<<<<<< HEAD
-<<<<<<< HEAD
       "INSERT INTO users (email,password, isrecruiter,uid) VALUES ($1, $2, $3,$4)",
       [email, hashedPassword, isrecruiter, uid]
-=======
-      'INSERT INTO users (email,password, isrecruiter) VALUES ($1, $2, $3)',
-      [email, hashedPassword, isrecruiter]
->>>>>>> RecDash
-=======
-      'INSERT INTO users (email,password, isrecruiter) VALUES ($1, $2, $3)',
-      [email, hashedPassword, isrecruiter]
->>>>>>> RecDash
     )
-      .then(async results => {
-        const res2 = await db.query('SELECT * FROM users WHERE email = $1', [
+      .then(async (results) => {
+        const res2 = await db.query("SELECT * FROM users WHERE email = $1", [
           email,
         ]);
         res.status(200).json(res2.rows[0]);
-        console.log('inserted record in users table');
+        console.log("inserted record in users table");
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         res
           .status(500)
-          .json({ message: 'Failed to store the email in the database' });
+          .json({ message: "Failed to store the email in the database" });
       });
     // })
     // .catch((err) => {
@@ -98,39 +70,7 @@ router.post('/register', async (req, res) => {
     // });
   } catch (error) {
     console.error(error);
-    res.status(501).json('Couldnt register');
-  }
-});
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
-  const results = await db.query('SELECT * FROM users WHERE email=$1', [email]);
-  if (results.rows.length > 0) {
-    // If a user was found, check the password
-    const user = results.rows[0];
-    const isMatch = await bcrypt.compare(password, user.password);
-    // If the password is correct, check if the user is an admin
-    if (isMatch) {
-      if (user.isrecruiter) {
-        // If the user is an admin, redirect to the admin page
-        console.log('is recruiter');
-        return res.status(200).json(user);
-      } else {
-        // If the user is not an admin, redirect to the home page
-        console.log('isnt recruiter');
-        return res.status(200).json(user);
-      }
-    } else {
-      // If no user was found, return an error message
-      console.log(email, password, 'not found in database');
-
-      console.log('incorrect password');
-      return res.status(401).json({ error: 'Incorrect username or password' });
-    }
-  } else {
-    console.log(email, 'not found in database');
-    return res.status(401).json({ error: 'Incorrect username or password' });
-<<<<<<< HEAD
+    res.status(501).json("Couldnt register");
   }
 });
 router.post("/login", async (req, res) => {
@@ -162,8 +102,6 @@ router.post("/login", async (req, res) => {
   } else {
     console.log(email, "not found in database");
     return res.status(401).json({ error: "Incorrect username or password" });
-=======
->>>>>>> RecDash
   }
 });
 module.exports = router;
