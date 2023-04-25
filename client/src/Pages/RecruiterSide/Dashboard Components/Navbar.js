@@ -14,6 +14,7 @@ const Nav = () => {
   const { user, dispatch } = useContext(AuthContext);
 
   return (
+<<<<<<< HEAD
     <div
       style={{
         display: "flex",
@@ -96,6 +97,50 @@ const Nav = () => {
         <ImExit size={30} style={{ marginRight: "10px" }} />
         Logout
       </div>
+=======
+    <div>
+      <nav className='navv'>
+        <h1>EmployedBulls</h1>
+        <ul>
+          <li>
+            <Link to='/Dashboard'>
+              <FcList
+                size={30}
+                style={{ color: 'white', marginRight: '5px' }}
+              />
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to='/recJobFeed'>
+              <FcBusiness
+                size={30}
+                style={{ color: 'white', marginRight: '5px' }}
+              />
+              Recruiter Job Feed
+            </Link>
+          </li>
+          <li>
+            <Link to='/JobAdded'>
+              <IoIosAddCircleOutline
+                size={30}
+                style={{ color: 'silver', marginRight: '5px' }}
+              />
+              Job Added
+            </Link>
+          </li>
+          <li>
+            <Link to='/InboxRec'>
+              <FcSettings
+                size={30}
+                style={{ color: 'white', marginRight: '5px' }}
+              />
+              Inbox
+            </Link>
+          </li>
+        </ul>
+      </nav>
+>>>>>>> RecDash
     </div>
   );
 };
