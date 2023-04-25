@@ -52,7 +52,7 @@ function Dashboard() {
             }}
           >
             <div className='dashboard__section dashboard__section--job-added'>
-              <h2>Job Added</h2>
+              {/* <h2>Job Added</h2> */}
               <JobAdded />
             </div>
 

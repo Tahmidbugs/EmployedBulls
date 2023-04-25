@@ -7,7 +7,7 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 const Nav = () => {
   return (
     <div>
-      <nav>
+      <nav className='navv'>
         <h1>EmployedBulls</h1>
         <ul>
           <li>

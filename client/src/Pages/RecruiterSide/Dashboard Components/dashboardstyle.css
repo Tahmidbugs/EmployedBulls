@@ -1,6 +1,6 @@
 /* Navigation bar */
 
-nav {
+.navv {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -17,7 +17,7 @@ nav {
   top: 0;
   min-width: 220px;
 }
-nav h1 {
+.navv h1 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 20px;
@@ -26,7 +26,7 @@ nav h1 {
   color: white;
 }
 
-nav ul {
+.navv ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -35,18 +35,18 @@ nav ul {
   left: 0;
 }
 
-nav li {
+.navv li {
   /* display: block; */
   padding: 20px 10px;
   font-size: 1.2rem;
   cursor: pointer;
 }
 
-nav li a {
+.navv li a {
   color: yellow;
 }
 
-nav li:hover {
+.navv li:hover {
   background-color: lightblue;
   color: black;
 }

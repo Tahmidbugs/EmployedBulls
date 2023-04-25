@@ -25,6 +25,7 @@ import { logoutCall } from './ContextCalls';
 import StudentApplications from './Pages/StudentSide/StudentApplications';
 import Job from './Pages/StudentSide/Job';
 import JobFeed from './Pages/StudentSide/JobFeed';
+import LandingPage from './Pages/landingpage';
 
 function App() {
   const { user, dispatch } = useContext(AuthContext);
@@ -98,6 +99,7 @@ function App() {
           <Route path='/jobfeed' element={<JobFeed />} />
           <Route path='/studentprofile' element={<StudentProfile />} />
           <Route path='/savedjobs' element={<SavedJobs />} />
+          <Route path='/landing' element={<LandingPage />} />
         </Routes>
       </Router>
     </div>
