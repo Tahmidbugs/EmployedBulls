@@ -6,6 +6,11 @@ import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Nav from "./Navbar";
+import { storageRef, storage } from "../../firebase";
+
+import { getDownloadURL } from "firebase/storage";
+
+import { ref, uploadBytesResumable } from "firebase/storage";
 
 const StudentAppForm = () => {
   const navigate = useNavigate();
@@ -24,6 +29,7 @@ const StudentAppForm = () => {
 
 const FormContainer = () => {
   const navigate = useNavigate();
+
   const { user, dispatch } = useContext(AuthContext);
   console.log("user at form container: ", user);
 
@@ -36,54 +42,91 @@ const FormContainer = () => {
   const [resume, setResume] = useState(null);
 
   const [major, setMajor] = useState("");
-  // const [workExperience, setWorkExperience] = useState("");
+
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [status, setStatus] = useState("");
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-  const [workExperience, setWorkExperience] = useState({
-    hasWorkExperience: false,
-    companyName: "",
-    position: "",
-    responsibilities: "",
-    startYear: "",
-    endYear: "",
-  });
+  const [resumeLink, setResumeLink] = useState("");
 
   const apiKey = "YOUR_AFFINDA_API_KEY";
 
   // Function to handle file upload
-  const handleFileUpload = async (e) => {
-    e.preventDefault();
-    if (!resume) {
-      setError("Please select a file.");
-      return;
-    }
-    console.log(resume);
+  // const handleFileUpload = async (e) => {
+  //   e.preventDefault();
+  //   if (!resume) {
+  //     setError("Please select a file.");
+  //     return;
+  //   }
+  //   console.log(resume);
 
-    const formData = new FormData();
-    formData.append("file", resume);
+  //   const formData = new FormData();
+  //   formData.append("file", resume);
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8800/uploadresume",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(response.data);
-      // do something with response data
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:8800/uploadresume",
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+  //     console.log(response.data);
+  //     // do something with response data
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const loggedInUser = JSON.parse(localStorage.getItem("loggedIn"));
+
+    const resumeFile = document.getElementById("resume").files[0];
+    const storageRef = ref(storage, `/files/${resumeFile.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, resumeFile);
+
+    // Create a promise that will resolve when the download URL is fetched
+    const downloadURLPromise = new Promise((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload is ${progress}% done`);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              console.log("Upload is running");
+          }
+        },
+        (error) => {
+          console.log(error);
+          reject(error);
+        },
+        () => {
+          // When the upload is complete, resolve the promise with the download URL
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then((downloadURL) => {
+              console.log("File available at", downloadURL);
+              setResumeLink(downloadURL);
+              resolve(downloadURL);
+            })
+            .catch((error) => {
+              console.log(error);
+              reject(error);
+            });
+        }
+      );
+    });
+
     const requestData = {
       fullName,
       studentId,
@@ -92,11 +135,16 @@ const FormContainer = () => {
       address,
       GPA,
       major,
-      workExperience,
-      resume,
+      resume: resumeLink,
     };
+
     try {
       console.log(requestData);
+
+      // Wait for the download URL to be fetched before making the backend call
+      const downloadURL = await downloadURLPromise;
+      requestData.resume = downloadURL;
+
       await axios.post("http://localhost:8800/insert-student", requestData);
       navigate("/jobfeed");
     } catch (err) {
@@ -105,11 +153,8 @@ const FormContainer = () => {
     }
   };
 
-  const handleChange = (event) => {
-    const selectedFile = event.target.files[0];
-    console.log(selectedFile);
-
-    setResume(selectedFile);
+  const handleResumeChange = (e) => {
+    setResume(e.target.files[0]);
   };
 
   return (
@@ -187,97 +232,15 @@ const FormContainer = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formBasicWorkExperience">
-          <Form.Label>Work Experience</Form.Label>
-          <Form.Check
-            type="checkbox"
-            label="Yes"
-            onChange={(e) =>
-              setWorkExperience({
-                ...workExperience,
-                hasWorkExperience: e.target.checked,
-              })
-            }
+        <div>
+          <label htmlFor="resume">Upload Resume:</label>
+          <input
+            type="file"
+            id="resume"
+            name="resume"
+            onChange={handleResumeChange}
           />
-        </Form.Group>
-
-        {workExperience.hasWorkExperience && (
-          <div>
-            <Form.Group controlId="formBasicCompanyName">
-              <Form.Label>Company Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Company Name"
-                onChange={(e) =>
-                  setWorkExperience({
-                    ...workExperience,
-                    companyName: e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPosition">
-              <Form.Label>Position</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Position"
-                onChange={(e) =>
-                  setWorkExperience({
-                    ...workExperience,
-                    position: e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicResponsibilities">
-              <Form.Label>Responsibilities</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Responsibilities"
-                onChange={(e) =>
-                  setWorkExperience({
-                    ...workExperience,
-                    responsibilities: e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicStartYear">
-              <Form.Label>Start Year</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Start Year"
-                onChange={(e) =>
-                  setWorkExperience({
-                    ...workExperience,
-                    startYear: e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicEndYear">
-              <Form.Label>End Year</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter End Year"
-                onChange={(e) =>
-                  setWorkExperience({
-                    ...workExperience,
-                    endYear: e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-          </div>
-        )}
-         <div>
-    <label htmlFor="resume">Upload Resume:</label>
-    <input type="file" id="resume" name="resume" />
-  </div>
+        </div>
         <button
           variant="primary"
           type="submit"
@@ -290,10 +253,8 @@ const FormContainer = () => {
           Submit
         </button>
       </Form>
-      
     </div>
   );
-  
 };
 
 export default StudentAppForm;

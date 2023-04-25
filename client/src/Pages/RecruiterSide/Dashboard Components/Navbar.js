@@ -41,7 +41,7 @@ const Nav = () => {
         <FcList size={20} style={{ color: "white", marginRight: "5" }} />
         Dashboard
       </Link>
-      <Link
+      {/* <Link
         to="/recJobFeed"
         style={{
           color: "#fff",
@@ -52,7 +52,7 @@ const Nav = () => {
       >
         <FcBusiness size={20} style={{ color: "white", marginRight: "5" }} />
         Recruiter Job Feed
-      </Link>
+      </Link> */}
       <Link
         to="/JobAdded"
         style={{
@@ -66,7 +66,7 @@ const Nav = () => {
           size={30}
           style={{ color: "silver", marginRight: "5" }}
         />
-        Job Added
+        Jobs Added
       </Link>
       <Link
         to="/inbox"

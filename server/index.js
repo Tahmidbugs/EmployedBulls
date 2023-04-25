@@ -87,6 +87,28 @@ io.on("connection", (socket) => {
 app.use("/api/auth", authRoute);
 app.use("/api/job", jobRoute);
 
+app.post("/apply-to-job", async (req, res) => {
+  try {
+    const { student_id, recruiter, position_name } = req.body;
+
+    console.log("student_id", student_id);
+    console.log("recruiter", recruiter);
+    console.log("position_name", position_name);
+
+    const result = await db.query(
+      "INSERT INTO applications (student_id, recruiter, position_name) VALUES ($1, $2, $3)",
+      [student_id, recruiter, position_name]
+    );
+    console.log("Applied to job successfully", result.rows);
+    res.status(200).send("Applied to job successfully");
+
+    // res.status(200).send(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error applying to job");
+  }
+});
+
 app.post("/insert-student", async (req, res) => {
   try {
     const {
@@ -97,7 +119,7 @@ app.post("/insert-student", async (req, res) => {
       address,
       GPA,
       major,
-      workExperience,
+
       resume,
     } = req.body;
 
@@ -110,11 +132,11 @@ app.post("/insert-student", async (req, res) => {
         address,
         gpa,
         major,
-        work_experience,
+       
         resume
     
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `;
     const insertValues = [
       studentId,
@@ -124,9 +146,8 @@ app.post("/insert-student", async (req, res) => {
       address,
       GPA,
       major,
-      workExperience,
+
       resume,
-      
     ];
     await db.query(insertQuery, insertValues);
     console.log("Student added successfully");
@@ -146,36 +167,26 @@ app.post("/insert-student", async (req, res) => {
   }
 });
 
-app.post("/uploadresume", upload.single("file"), async (req, res) => {
-  const file = req.file;
-  if (!file) {
-    return res.status(400).json({ error: "Please upload a file." });
-  }
-  if (file.mimetype !== "application/pdf") {
-    return res
-      .status(400)
-      .json({ error: "Invalid file type. Please upload a PDF file." });
-  }
-  console.log(file);
+app.get("/jobsApplied/:email", async (req, res) => {
+  const { email } = req.params;
 
   try {
-    const url = `https://api.apilayer.com/resume_parser/url?url=${file.buffer}`;
-    const response = await axios.get(url, {
-      headers: {
-        apikey: "Kmph8W64mcq1jVP9OvLdODWifuVAZI4H",
-      },
-    });
-    const data = response.data;
-    // do something with the parsed data
-    console.log(data);
-    res.json({ success: true });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error." });
+    const appliedJobs = await db.query(
+      `SELECT *
+       FROM applications
+       INNER JOIN job ON applications.position_name = job.position_name AND applications.recruiter = job.recruiter
+       WHERE applications.student_id = $1`,
+      [email]
+    );
+
+    console.log(appliedJobs.rows);
+
+    res.json(appliedJobs.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
-
-//twilio config
 
 const port = process.env.PORT || 8800;
 

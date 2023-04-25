@@ -9,6 +9,8 @@ import { ImExit } from "react-icons/im";
 import { AuthContext } from "../../Context/AuthContext";
 import Logo from "../../Assets/logo.gif";
 import { logoutCall } from "../../ContextCalls";
+import { BsFillBriefcaseFill } from "react-icons/bs";
+import { MdSpaceDashboard } from "react-icons/md";
 
 const Nav = () => {
   const { user, dispatch } = useContext(AuthContext);
@@ -18,9 +20,9 @@ const Nav = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-start",
         backgroundColor: "#252525",
-
+        paddingLeft: "3rem",
         padding: "1rem",
         width: "15%",
       }}
@@ -35,9 +37,22 @@ const Nav = () => {
           marginBottom: "1rem",
           display: "flex",
           alignItems: "center",
+          alignSelf: "center",
+          cursor: "pointer",
+          opacity: "1.0",
+          transition: "opacity 0.3s ease",
+        }}
+        onMouseEnter={(event) => {
+          event.target.style.opacity = "0.6";
+        }}
+        onMouseLeave={(event) => {
+          event.target.style.opacity = "1.0";
         }}
       >
-        <FcList size={20} style={{ color: "white", marginRight: "5" }} />
+        <MdSpaceDashboard
+          size={30}
+          style={{ color: "#FD3953", marginRight: "5" }}
+        />
         Dashboard
       </Link>
       <Link
@@ -47,23 +62,50 @@ const Nav = () => {
           textDecoration: "none",
           fontSize: "1.2rem",
           marginBottom: "1rem",
+          display: "flex",
+          alignItems: "center",
+          alignSelf: "center",
+          cursor: "pointer",
+          opacity: "1.0",
+          transition: "opacity 0.3s ease",
+        }}
+        onMouseEnter={(event) => {
+          event.target.style.opacity = "0.6";
+        }}
+        onMouseLeave={(event) => {
+          event.target.style.opacity = "1.0";
         }}
       >
-        <FcBusiness size={20} style={{ color: "white", marginRight: "5" }} />
+        <BsFillBriefcaseFill
+          size={25}
+          style={{ color: "#FD3953", marginRight: "5" }}
+        />
         Explore jobs
       </Link>
       <Link
-        to="/JobAdded"
+        to="/appliedjobs"
         style={{
           color: "#fff",
           textDecoration: "none",
           fontSize: "1.2rem",
           marginBottom: "1rem",
+          display: "flex",
+          alignItems: "center",
+          alignSelf: "center",
+          cursor: "pointer",
+          opacity: "1.0",
+          transition: "opacity 0.3s ease",
+        }}
+        onMouseEnter={(event) => {
+          event.target.style.opacity = "0.6";
+        }}
+        onMouseLeave={(event) => {
+          event.target.style.opacity = "1.0";
         }}
       >
         <IoIosAddCircleOutline
           size={30}
-          style={{ color: "silver", marginRight: "5" }}
+          style={{ color: "#FD3953", marginRight: "5" }}
         />
         Applied jobs
       </Link>
@@ -74,11 +116,23 @@ const Nav = () => {
           textDecoration: "none",
           fontSize: "1.2rem",
           marginBottom: "1rem",
+          display: "flex",
+          alignItems: "center",
+          alignSelf: "center",
+          cursor: "pointer",
+          opacity: "1.0",
+          transition: "opacity 0.3s ease",
+        }}
+        onMouseEnter={(event) => {
+          event.target.style.opacity = "0.6";
+        }}
+        onMouseLeave={(event) => {
+          event.target.style.opacity = "1.0";
         }}
       >
         <AiFillMessage
           size={30}
-          style={{ color: "silver", marginRight: "5" }}
+          style={{ color: "#FD3953", marginRight: "5" }}
         />
         Inbox
       </Link>
@@ -89,10 +143,21 @@ const Nav = () => {
           textDecoration: "none",
           fontSize: "1.2rem",
           marginBottom: "1rem",
+          display: "flex",
+          alignItems: "center",
+          alignSelf: "center",
           cursor: "pointer",
+          opacity: "1.0",
+          transition: "opacity 0.3s ease",
+        }}
+        onMouseEnter={(event) => {
+          event.target.style.opacity = "0.6";
+        }}
+        onMouseLeave={(event) => {
+          event.target.style.opacity = "1.0";
         }}
       >
-        <ImExit size={30} style={{ marginRight: "10px" }} />
+        <ImExit size={30} style={{ color: "#FD3953", marginRight: "5" }} />
         Logout
       </div>
     </div>
