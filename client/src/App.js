@@ -106,20 +106,7 @@ function App() {
             element={<StudentApplications />}
           />
           <Route path="/job" element={<Job />} />
-          <Route
-            path="/jobfeed"
-            element={
-              user ? (
-                user.profilecomplete ? (
-                  <JobFeed />
-                ) : (
-                  <StudentAppForm />
-                )
-              ) : (
-                <Login />
-              )
-            }
-          />
+          <Route path="/jobfeed" element={user ? <JobFeed /> : <Login />} />
           <Route path="/studentprofile" element={<StudentProfile />} />
           <Route path="/savedjobs" element={<SavedJobs />} />
         </Routes>
