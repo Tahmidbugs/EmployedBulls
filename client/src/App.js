@@ -10,6 +10,7 @@ import InboxWithStudentMessages from "./Pages/RecruiterSide/Dashboard Components
 import StudentDashboard from "./Pages/StudentSide/StudentDashboard";
 import StudentProfile from "./Pages/StudentSide/StudentProfile";
 import SavedJobs from "./Pages/StudentSide/SavedJobs";
+import ExploreCompanies from "./Pages/StudentSide/ExploreCompanies";
 
 
 
@@ -118,6 +119,7 @@ function App() {
           <Route path="/appliedjobs" element={<AppliedJobs />} />
           <Route path="/landingpage" element={<LandingPage />} />
           <Route path="/studentrecview" element={<StudentRecView/>} />
+          <Route path='/explorecompanies' element={<ExploreCompanies />} />
         </Routes>
       </Router>
     </div>
