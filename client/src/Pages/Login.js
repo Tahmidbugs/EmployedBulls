@@ -65,7 +65,12 @@ function Login() {
       }}
     >
       <div style={{ display: "flex", marginTop: 20 }}>
-        <Link to="/registration">
+        <Link
+          to="/registration "
+          style={{
+            textDecorationColor: "#FF3953",
+          }}
+        >
           <h4
             style={{
               fontWeight: 100,
@@ -77,7 +82,12 @@ function Login() {
           </h4>
         </Link>
         <h2 style={{ fontSize: "18px", padding: 3 }}>or</h2>
-        <Link to="/login">
+        <Link
+          to="/login"
+          style={{
+            textDecorationColor: "#FF3953",
+          }}
+        >
           <h4 style={{ fontWeight: 900, color: "#FF3953" }}>Sign In</h4>
         </Link>
       </div>
@@ -109,6 +119,7 @@ function Login() {
               required
               style={{
                 backgroundColor: "#D9D9D9 ",
+                color: "#FF3953",
               }}
               placeholder="Enter your email address"
             />
@@ -136,7 +147,7 @@ function Login() {
                     color: "#FF3953",
                     width: "250px",
                   }}
-                  placeholder="Enter a cute password"
+                  placeholder="Enter your cute password"
                 />
               </div>
             </div>
@@ -152,7 +163,17 @@ function Login() {
               width: 250,
               backgroundColor: "#FF3953",
               color: "#D9D9D9",
+              cursor: "pointer",
               fontWeight: "800",
+              opacity: 1,
+              transition: "opacity 0.3s ease",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(event) => {
+              event.target.style.opacity = "0.6";
+            }}
+            onMouseLeave={(event) => {
+              event.target.style.opacity = "1.0";
             }}
           >
             Login
