@@ -66,7 +66,7 @@ function LandingPage() {
               marginBottom: "20px",
             }}
           >
-            <span style={{ color: "#CEF848", fontStyle: "italic" }}>
+            <span style={{ color: "#0CAC38", fontStyle: "italic" }}>
               HANDSHAKE
             </span>
             {"  "}
@@ -103,11 +103,11 @@ function LandingPage() {
                 onMouseLeave={() => setIsHovered(false)}
               >
                 <h5 style={{ color: "#D9D9D9 " }}>
-                  I'm a USF Bulls looking for job
+                  I'm a USF Bull looking for job
                 </h5>
                 <Lottie options={defaultOptions} height={250} width={250} />
                 <a
-                  href="/login"
+                  href="/registration"
                   style={{
                     marginTop: "20px",
                     backgroundColor: "#FF3953 ",
@@ -141,7 +141,7 @@ function LandingPage() {
                 <Lottie options={defaultOptions2} height={250} width={250} />
 
                 <a
-                  href="/login"
+                  href="/registration"
                   style={{
                     marginTop: "20px",
                     backgroundColor: "#FF3953 ",

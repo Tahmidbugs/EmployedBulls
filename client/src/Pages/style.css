@@ -35,17 +35,9 @@ h3 {
   margin-bottom: 10px;
   text-align: center;
 }
-label.rec-checkbox {
-  display: block;
-  font-size: 20px;
-  margin-bottom: 10px;
-  text-align: center;
-}
 
-label.rec-checkbox input[type='checkbox'] {
-  transform: scale(1.2);
-  margin-right: 10px;
-}
+
+
 
 .form input[type='text'],
 .form input[type='email'],
