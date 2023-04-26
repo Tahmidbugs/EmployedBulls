@@ -11,8 +11,10 @@ import AnimatonData from "../../../Assets/Lotties/Add.json";
 import Lottie from "react-lottie";
 import { Bars } from "react-loader-spinner";
 
+
 import axios from "axios";
 import AddJobModal from "../Dashboard Components/AddJobModal";
+import { Link } from "react-router-dom";
 function Dashboard() {
   const [addedJobs, setAddedJobs] = React.useState([]);
   const { user, dispatch } = useContext(AuthContext);
@@ -86,6 +88,7 @@ function Dashboard() {
 
             <div className="dashboard__section dashboard__section--job-added">
               <h2>Applicants</h2>
+              <Link to="/studentRecView"> View Applicants</Link>
               {/* <JobAdded /> */}
             </div>
           </div>

@@ -11,6 +11,9 @@ import StudentDashboard from "./Pages/StudentSide/StudentDashboard";
 import StudentProfile from "./Pages/StudentSide/StudentProfile";
 import SavedJobs from "./Pages/StudentSide/SavedJobs";
 
+
+
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -26,6 +29,8 @@ import StudentApplications from "./Pages/StudentSide/StudentApplications";
 import Job from "./Pages/StudentSide/Job";
 import JobFeed from "./Pages/StudentSide/JobFeed";
 import AppliedJobs from "./Pages/StudentSide/AppliedJobs";
+import LandingPage from "./Pages/landingpage";
+import StudentRecView from "./Pages/StudentSide/studentRecView";
 
 function App() {
   const { user, dispatch } = useContext(AuthContext);
@@ -111,6 +116,8 @@ function App() {
           <Route path="/studentprofile" element={<StudentProfile />} />
           <Route path="/savedjobs" element={<SavedJobs />} />
           <Route path="/appliedjobs" element={<AppliedJobs />} />
+          <Route path="/landingpage" element={<LandingPage />} />
+          <Route path="/studentrecview" element={<StudentRecView/>} />
         </Routes>
       </Router>
     </div>
