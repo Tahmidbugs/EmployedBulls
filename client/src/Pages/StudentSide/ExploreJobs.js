@@ -122,13 +122,16 @@ const ExploreJobs = () => {
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
+        minHeight: "100vh",
+        backgroundImage:
+          "url(https://www.transparenttextures.com/patterns/batthern.png)",
+        backgroundColor: "#D9D9D9 ",
       }}
     >
       <Nav />
       <div
         style={{
-          width: "70%",
+          width: "80%",
           marginLeft: "100px",
           marginTop: "50px",
           display: "flex",
