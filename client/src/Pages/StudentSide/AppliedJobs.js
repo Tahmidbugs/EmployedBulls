@@ -28,7 +28,7 @@ const AppliedJobs = () => {
       <Nav />
       <div
         style={{
-          width: "70%",
+          width: "80%",
           marginLeft: "100px",
           marginTop: "50px",
           display: "flex",

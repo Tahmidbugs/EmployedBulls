@@ -7,7 +7,7 @@ import Nav from "./Navbar";
 import { Container } from "reactstrap";
 import { AuthContext } from "../../Context/AuthContext";
 
-const JobFeed = () => {
+const ExploreJobs = () => {
   const [filter, setFilter] = useState("all");
   const [selectedfilterOptions, setfilterOptions] = useState([]);
   const [selectedType, setSelectedType] = useState("");
@@ -137,7 +137,7 @@ const JobFeed = () => {
         }}
       >
         <h2>
-          Get recruited on Campus <br />
+          Explore on campus jobs <br />
         </h2>
 
         <div style={{ display: "flex", alignItems: "center", width: "40%" }}>
@@ -492,4 +492,4 @@ const JobPage = ({ info }) => {
     </div>
   );
 };
-export default JobFeed;
+export default ExploreJobs;

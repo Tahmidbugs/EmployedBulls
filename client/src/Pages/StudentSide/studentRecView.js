@@ -13,7 +13,7 @@ function StudentRecView(props) {
       <Nav />
       <div
         style={{
-          width: "70%",
+          width: "80%",
           marginLeft: "100px",
           marginTop: "50px",
           display: "flex",
@@ -40,42 +40,52 @@ function StudentRecView(props) {
           `}
         </style>
 
-        <p style={{ 
-  fontFamily: "Arial, sans-serif", 
-  fontWeight: "bold", 
-  fontSize: "1.2rem", 
-  marginBottom: "10px" 
-}}>
-  Name: Abdur
-</p>
-<p style={{ 
-  fontFamily: "Arial, sans-serif", 
-  fontSize: "1rem", 
-  marginBottom: "5px" 
-}}>
-  Student ID: 123456
-</p>
-<p style={{ 
-  fontFamily: "Arial, sans-serif", 
-  fontSize: "1rem", 
-  marginBottom: "5px" 
-}}>
-  Email: abdurmonke@example.com
-</p>
-<p style={{ 
-  fontFamily: "Arial, sans-serif", 
-  fontSize: "1rem", 
-  marginBottom: "5px" 
-}}>
-  GPA: 3.0
-</p>
-<p style={{ 
-  fontFamily: "Arial, sans-serif", 
-  fontSize: "1rem", 
-  marginBottom: "10px" 
-}}>
-  Major: Computer Science
-</p>
+        <p
+          style={{
+            fontFamily: "Arial, sans-serif",
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            marginBottom: "10px",
+          }}
+        >
+          Name: Abdur
+        </p>
+        <p
+          style={{
+            fontFamily: "Arial, sans-serif",
+            fontSize: "1rem",
+            marginBottom: "5px",
+          }}
+        >
+          Student ID: 123456
+        </p>
+        <p
+          style={{
+            fontFamily: "Arial, sans-serif",
+            fontSize: "1rem",
+            marginBottom: "5px",
+          }}
+        >
+          Email: abdurmonke@example.com
+        </p>
+        <p
+          style={{
+            fontFamily: "Arial, sans-serif",
+            fontSize: "1rem",
+            marginBottom: "5px",
+          }}
+        >
+          GPA: 3.0
+        </p>
+        <p
+          style={{
+            fontFamily: "Arial, sans-serif",
+            fontSize: "1rem",
+            marginBottom: "10px",
+          }}
+        >
+          Major: Computer Science
+        </p>
 
         <iframe src={resumeUrl} width="100%" height="600px"></iframe>
       </div>

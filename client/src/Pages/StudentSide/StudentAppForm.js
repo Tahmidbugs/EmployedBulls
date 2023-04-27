@@ -146,7 +146,7 @@ const FormContainer = () => {
       requestData.resume = downloadURL;
 
       await axios.post("http://localhost:8800/insert-student", requestData);
-      navigate("/jobfeed");
+      navigate("/studentdashboard");
     } catch (err) {
       console.error(err);
       setStatus("Error submitting application");

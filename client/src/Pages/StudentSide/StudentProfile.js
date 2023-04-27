@@ -23,7 +23,7 @@ const StudentProfile = () => {
       //     GPA,
       //   }
       // );
-      navigate("/jobfeed");
+      navigate("/explorejobs");
     } catch (e) {
       console.log("somethings up");
     }
@@ -186,7 +186,7 @@ const StudentProfile = () => {
           marginTop: "20px",
         }}
       >
-        Save changes 
+        Save changes
       </button>
     </div>
   );

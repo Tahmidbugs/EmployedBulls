@@ -11,7 +11,6 @@ import AnimatonData from "../../../Assets/Lotties/Add.json";
 import Lottie from "react-lottie";
 import { Bars } from "react-loader-spinner";
 
-
 import axios from "axios";
 import AddJobModal from "../Dashboard Components/AddJobModal";
 import { Link } from "react-router-dom";
@@ -38,7 +37,7 @@ function Dashboard() {
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <Nav />
-      <div style={{ height: "100vh" }}>
+      <div style={{ height: "100vh", width: "80%" }}>
         <div
           className="dashboard-header"
           style={{ height: "100vh", width: "80%" }}

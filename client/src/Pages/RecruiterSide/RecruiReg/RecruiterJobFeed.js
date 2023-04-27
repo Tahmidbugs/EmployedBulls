@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Formik, useFormik } from 'formik';
-import { Link } from 'react-router-dom';
-import './Recruitstyle.css';
-import Nav from '../Dashboard Components/Navbar';
+import React, { useState } from "react";
+import { Formik, useFormik } from "formik";
+import { Link } from "react-router-dom";
+import "./Recruitstyle.css";
+import Nav from "../Dashboard Components/Navbar";
 
 export default function RecruiterJobFeed() {
   const [jobs, setJobs] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const formik = useFormik({
     initialValues: {
-      companyName: '',
-      jobTitle: '',
-      jobDescription: '',
-      qualifications: '',
-      location: '',
+      companyName: "",
+      jobTitle: "",
+      jobDescription: "",
+      qualifications: "",
+      location: "",
     },
     onSubmit: (values, actions) => {
       setJobs([...jobs, values]);
@@ -23,60 +23,60 @@ export default function RecruiterJobFeed() {
   });
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: "flex" }}>
       <Nav />
-      <div className='form-container'>
+      <div className="form-container" style={{ width: "80%" }}>
         {isAdding ? (
           <Formik {...formik}>
             {({ isSubmitting }) => (
               <form onSubmit={formik.handleSubmit}>
-                <div className='form-group'>
-                  <label htmlFor='companyName'>Company Name</label>
+                <div className="form-group">
+                  <label htmlFor="companyName">Company Name</label>
                   <input
-                    type='text'
-                    name='companyName'
-                    className='form-control'
-                    {...formik.getFieldProps('companyName')}
+                    type="text"
+                    name="companyName"
+                    className="form-control"
+                    {...formik.getFieldProps("companyName")}
                   />
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='jobTitle'>Job Title</label>
+                <div className="form-group">
+                  <label htmlFor="jobTitle">Job Title</label>
                   <input
-                    type='text'
-                    name='jobTitle'
-                    className='form-control'
-                    {...formik.getFieldProps('jobTitle')}
+                    type="text"
+                    name="jobTitle"
+                    className="form-control"
+                    {...formik.getFieldProps("jobTitle")}
                   />
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='jobDescription'>Job Description</label>
+                <div className="form-group">
+                  <label htmlFor="jobDescription">Job Description</label>
                   <textarea
-                    name='jobDescription'
-                    className='form-control'
-                    {...formik.getFieldProps('jobDescription')}
+                    name="jobDescription"
+                    className="form-control"
+                    {...formik.getFieldProps("jobDescription")}
                   ></textarea>
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='qualifications'>Qualifications</label>
+                <div className="form-group">
+                  <label htmlFor="qualifications">Qualifications</label>
                   <input
-                    type='text'
-                    name='qualifications'
-                    className='form-control'
-                    {...formik.getFieldProps('qualifications')}
+                    type="text"
+                    name="qualifications"
+                    className="form-control"
+                    {...formik.getFieldProps("qualifications")}
                   />
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='location'>Location</label>
+                <div className="form-group">
+                  <label htmlFor="location">Location</label>
                   <input
-                    type='text'
-                    name='location'
-                    className='form-control'
-                    {...formik.getFieldProps('location')}
+                    type="text"
+                    name="location"
+                    className="form-control"
+                    {...formik.getFieldProps("location")}
                   />
                 </div>
                 <button
-                  type='submit'
-                  className='btn btn-primary'
+                  type="submit"
+                  className="btn btn-primary"
                   disabled={isSubmitting}
                 >
                   Add Job
@@ -85,8 +85,8 @@ export default function RecruiterJobFeed() {
             )}
           </Formik>
         ) : (
-          <button className='btn btn-primary' onClick={() => setIsAdding(true)}>
-            <i className='fas fa-plus-circle'></i> Add Job
+          <button className="btn btn-primary" onClick={() => setIsAdding(true)}>
+            <i className="fas fa-plus-circle"></i> Add Job
           </button>
         )}
         {jobs.length === 0 ? (
@@ -94,7 +94,7 @@ export default function RecruiterJobFeed() {
         ) : (
           <div>
             {jobs.map((job, index) => (
-              <div key={index} className='form-container'>
+              <div key={index} className="form-container">
                 <Link to={{ pathname: `/jobPageRec/${index}`, state: { job } }}>
                   <p>Company Name: {job.companyName}</p>
                   <h3>{job.jobTitle}</h3>

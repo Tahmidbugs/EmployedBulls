@@ -64,7 +64,7 @@ const Nav = () => {
         Dashboard
       </Link>
       <Link
-        to="/jobfeed"
+        to="/explorejobs"
         style={{
           color: "#fff",
           textDecoration: "none",
@@ -145,7 +145,10 @@ const Nav = () => {
         Inbox
       </Link>
       <div
-        onClick={() => logoutCall(dispatch)}
+        onClick={() => {
+          logoutCall(dispatch);
+          navigate("/login");
+        }}
         style={{
           color: "#fff",
           textDecoration: "none",
