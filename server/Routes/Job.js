@@ -12,10 +12,11 @@ router.post("/addJob", async (req, res) => {
       hiring,
       location,
       recruiter,
+      jobtypes,
     } = req.body;
 
     const newJob = await db.query(
-      "INSERT INTO job (company_name, position_name, jobdescription, salary, hiring,location, recruiter) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      "INSERT INTO job (company_name, position_name, jobdescription, salary, hiring,location, recruiter, jobtypes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         company_name,
         position_name,
@@ -24,6 +25,7 @@ router.post("/addJob", async (req, res) => {
         hiring,
         location,
         recruiter,
+        jobtypes,
       ]
     );
     console.log("new job", newJob.rows[0]);

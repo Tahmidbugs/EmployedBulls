@@ -48,7 +48,7 @@ const AddJobModal = ({ handleModalClose, jobcount, setJobCount }) => {
 
   // const [selectedjobtype, setSelectedjobtype] = useState(jobtype[0]);
   const [loading, setLoading] = useState(false);
-  const [selectedjobtypes, setSelectedjobtypes] = useState(jobtype[0]);
+  const [selectedjobtypes, setSelectedjobtypes] = useState([]);
   const [showAnimation, setShowAnimation] = useState(false);
 
   const handleSubmit = (e) => {
@@ -61,8 +61,10 @@ const AddJobModal = ({ handleModalClose, jobcount, setJobCount }) => {
       salary,
       hiring,
       recruiter: user.email,
+      jobtypes: selectedjobtypes,
     };
     console.log("trying to add job", job);
+    console.log("job types selected", selectedjobtypes);
     setLoading(true);
     axios
       .post("http://localhost:8800/api/job/addJob", job)
