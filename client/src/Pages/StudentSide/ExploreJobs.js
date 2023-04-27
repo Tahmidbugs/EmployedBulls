@@ -96,10 +96,10 @@ const ExploreJobs = () => {
     setSelectedOrder(selectedOrder);
     console.log(selectedOrder);
     if (selectedOrder === "lowest to highest") {
-      const sortedJobs = [...jobs].sort((a, b) => a.salary - b.salary);
+      const sortedJobs = [...feeltered].sort((a, b) => a.salary - b.salary);
       setFeeltered(sortedJobs);
     } else if (selectedOrder === "highest to lowest") {
-      const sortedJobs = [...jobs].sort((a, b) => b.salary - a.salary);
+      const sortedJobs = [...feeltered].sort((a, b) => b.salary - a.salary);
       setFeeltered(sortedJobs);
     } else {
       // Reset to original jobs
@@ -111,6 +111,7 @@ const ExploreJobs = () => {
     const fetchJobs = async () => {
       try {
         const res = await axios.get("http://localhost:8800/api/job/");
+        setFeeltered(res.data);
         setJobs(res.data); // add the new data to the existing array
         console.log("Successful");
       } catch (error) {
@@ -119,7 +120,8 @@ const ExploreJobs = () => {
     };
 
     fetchJobs();
-  }, [jobs]);
+    
+  }, []);
 
   const filteredJobs =
     filter === "all" ? jobs : jobs.filter((job) => job.hiring > 0);
