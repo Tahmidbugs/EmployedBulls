@@ -60,11 +60,7 @@ function App() {
             element={
               user ? (
                 user.isrecruiter ? (
-                  user.profilecomplete ? (
-                    <Navigate to="/Dashboard" />
-                  ) : (
-                    <RecruiterReg />
-                  )
+                  <Navigate to="/Dashboard" />
                 ) : user.profilecomplete ? (
                   <Navigate to="/studentdashboard" />
                 ) : (

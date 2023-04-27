@@ -250,10 +250,10 @@ const ApplicationCount = ({ jobs }) => {
   );
 };
 const ApplicationPieChart = ({ jobs }) => {
-  const interviews = 20;
-  const applied = 80;
-  const rejections = 10;
-  const UnderReview = 10;
+  const interviews = 1;
+  const applied = 5;
+  const rejections = 2;
+  const UnderReview = 1;
 
   return (
     <div

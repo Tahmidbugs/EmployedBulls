@@ -111,7 +111,7 @@ function Registration() {
       setIsLoading(false);
       // if (response.status === 200) {
       if (isrecruiter) {
-        navigate("/recruiter-reg");
+        navigate("/Dashboard");
       } else {
         navigate("/");
       }

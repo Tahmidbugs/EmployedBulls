@@ -10,10 +10,12 @@ import { AuthContext } from "../../../Context/AuthContext";
 import AnimatonData from "../../../Assets/Lotties/Add.json";
 import Lottie from "react-lottie";
 import { Bars } from "react-loader-spinner";
-
+import { PieChart } from "react-minimal-pie-chart";
+import { IoIosSave } from "react-icons/io";
+import { BsPersonVideo2 } from "react-icons/bs";
 import axios from "axios";
 import AddJobModal from "../Dashboard Components/AddJobModal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Dashboard() {
   const [addedJobs, setAddedJobs] = React.useState([]);
   const { user, dispatch } = useContext(AuthContext);
@@ -36,72 +38,93 @@ function Dashboard() {
   }, [jobcount]);
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        backgroundColor: "#D9D9D9 ",
+        fontFamily: "Roboto",
+        backgroundImage:
+          "url(https://www.transparenttextures.com/patterns/batthern.png)",
+      }}
+    >
       <Nav />
-      <div style={{ height: "100vh", width: "80%" }}>
-        <div>
-          <div className="header-right">
-            <span>Recruiter Name</span>
-            <FaUserCircle size={30} style={{ marginLeft: 10 }} />
-            <BiBell size={30} style={{ marginLeft: 10 }} />
-          </div>
-          <br />
-          <br />
-
-          <h1>Dashboard</h1>
-          <h5>Hello Recruiter! Here is a summary of your hiring journey.</h5>
-          <br />
-          <br />
-          {jobModal && (
-            <AddJobModal
-              handleModalClose={() => setJobModal(false)}
-              jobcount={jobcount}
-              setJobCount={setJobCount}
-            />
-          )}
-
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <div style={{ width: "33%" }}>
-              <h5>Add a new job</h5>
-              <AddJob
-                jobModal={jobModal}
-                setJobModal={setJobModal}
-                totalJobs={addedJobs.length}
-              />
+      {user && addedJobs && (
+        <div
+          style={{
+            width: "80%",
+            marginLeft: "50px",
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "50px",
+          }}
+        >
+          <div>
+            <div className="header-right">
+              <span>
+                <strong style={{ color: "#FF3953" }}>{user.email} </strong>
+              </span>
+              <FaUserCircle size={30} style={{ marginLeft: 10 }} />
+              <BiBell size={30} style={{ marginLeft: 10 }} />
             </div>
+            <br />
 
-            <div className="dashboard__section dashboard__section--inbox">
-              <h2>Inbox</h2>
-              <LatestMessages />
-              {/* <InboxWithStudentMessages /> */}
-            </div>
-            <div className="dashboard__section dashboard__section--upcoming-interviews">
-              <h2>Upcoming Interviews</h2>
-              <UpcomingInterviews />
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-around",
-              boxShadow: "none",
-              borderRadius: 0,
-            }}
-          >
-            <div className="dashboard__section dashboard__section--job-added">
-              <h2>Job Summary</h2>
-              {/* job list added by recruiter */}
-              <Last2jobs addedJobs={addedJobs} />
-            </div>
+            <h2>
+              <strong style={{ color: "#FF3953" }}> Hello, Recruiter!</strong>
+            </h2>
+            <p>Here's what's happening with your hiring journey</p>
 
-            <div className="dashboard__section dashboard__section--job-added">
-              <h2>Applicants</h2>
-              <Link to="/studentRecView"> View Applicants</Link>
-              {/* <JobAdded /> */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                flexDirection: "column",
+                width: "100%",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <AddJob
+                  jobModal={jobModal}
+                  setJobModal={setJobModal}
+                  totalJobs={addedJobs.length}
+                />
+                {jobModal && (
+                  <AddJobModal
+                    handleModalClose={() => setJobModal(false)}
+                    jobcount={jobcount}
+                    setJobCount={setJobCount}
+                  />
+                )}
+                <InterviewStatus />
+                <ApplicationPieChart addedJobs={addedJobs} />
+                {/* <ApplicationPieChart /> */}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                  flexDirection: "row",
+                  marginTop: "40px",
+                }}
+              >
+                <ApplicationHistory addedJobs={addedJobs} />
+                {/* <SavedJobs /> */}
+                {/* <ApplicationPieChart />{" "} */}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -139,6 +162,9 @@ const AddJob = ({ jobModal, setJobModal, totalJobs }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor: "#E6E3E3",
+        borderRadius: "10px",
+        padding: "20px",
       }}
     >
       <div
@@ -263,6 +289,390 @@ const RecentlyAddedJobs = () => {
           ))}
         </tbody>
       </table>
+    </div>
+  );
+};
+
+const ApplicationCount = ({ jobs }) => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: AnimatonData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  const defaultOptions2 = {
+    loop: true,
+    autoplay: true,
+    animationData: AnimatonData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        width: "33%",
+        height: "30vh",
+        backgroundColor: "#E6E3E3",
+        borderRadius: "20px",
+        cursor: "pointer",
+        opacity: "1.0",
+        transition: "opacity 0.3s ease",
+      }}
+      onMouseEnter={(event) => {
+        event.target.style.opacity = "0.9";
+      }}
+      onMouseLeave={(event) => {
+        event.target.style.opacity = "1.0";
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div>
+          <Lottie options={defaultOptions} width={60} height={60} />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "30px",
+          }}
+        >
+          <h2 style={{ color: "#FF3953", fontWeight: "700" }}>{jobs.length}</h2>
+          <p style={{ color: "#FF3953", fontWeight: "700" }}>
+            Total Jobs Applied
+          </p>
+        </div>
+      </div>
+      <div style={{ marginTop: "-0px" }}>
+        <div>
+          <Lottie options={defaultOptions2} width={60} height={60} />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "30px",
+          }}
+        >
+          <h2 style={{ color: "#FF3953", fontWeight: "700" }}>0</h2>
+          <p style={{ color: "#FF3953", fontWeight: "700" }}>
+            Total Interviews
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+const ApplicationPieChart = ({ addedJobs }) => {
+  const interviews = 1;
+  const jobsAdded = addedJobs.length;
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        width: "33%",
+        backgroundColor: "#E6E3E3",
+        borderRadius: "20px",
+        flexDirection: "column",
+        cursor: "pointer",
+        opacity: "1.0",
+        transition: "opacity 0.3s ease",
+      }}
+      onMouseEnter={(event) => {
+        event.target.style.opacity = "0.9";
+      }}
+      onMouseLeave={(event) => {
+        event.target.style.opacity = "1.0";
+      }}
+    >
+      <h5 style={{ color: "#FF3953", fontWeight: "700", marginTop: "20px" }}>
+        Recruitment status
+      </h5>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <PieChart
+          data={[
+            { title: "Applied", value: jobsAdded, color: "#E35627" },
+            { title: "Interviews", value: interviews, color: "#C11137" },
+          ]}
+          style={{
+            marginTop: "20px",
+            marginLeft: "20px",
+            marginRight: "20px",
+            marginBottom: "20px",
+            width: "45%",
+            // height: "40%",
+          }}
+        />
+        {/* color codes */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "#E38627",
+                width: "20px",
+                height: "20px",
+                borderRadius: "50%",
+                marginRight: "10px",
+              }}
+            ></div>
+            <p>Applied</p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "#C13C37",
+                width: "20px",
+                height: "20px",
+                borderRadius: "50%",
+                marginRight: "10px",
+              }}
+            ></div>
+            <p>Interviews</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const InterviewStatus = ({ jobs }) => {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        width: "30%",
+        backgroundColor: "#E6E3E3",
+        height: "30vh",
+        borderRadius: "20px",
+        cursor: "pointer",
+        opacity: "1.0",
+        transition: "opacity 0.3s ease",
+      }}
+      onMouseEnter={(event) => {
+        event.target.style.opacity = "0.9";
+      }}
+      onMouseLeave={(event) => {
+        event.target.style.opacity = "1.0";
+      }}
+    >
+      <BsPersonVideo2 size={50} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <h2 style={{ fontWeight: "700" }}>Schedule Interviews</h2>
+        You did not schedule any interviews yet
+        <button
+          style={{
+            backgroundColor: "#FF3953",
+            color: "white",
+            padding: 20,
+            marginTop: 20,
+            borderRadius: 20,
+          }}
+          onClick={() => {
+            navigate("/JobAdded");
+          }}
+        >
+          Schedule
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const ApplicationHistory = ({ addedJobs }) => {
+  addedJobs = addedJobs.slice(0, 3); // only display the first 3 addedJobs
+
+  return (
+    <div
+      style={{
+        backgroundColor: "#E6E3E3",
+        borderRadius: "10px",
+        padding: "20px",
+        width: "50%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "30vh",
+      }}
+    >
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+        Your recently added jobs
+      </h2>
+      <table
+        style={{
+          width: "100%",
+          backgroundColor: "#252525",
+          color: "#D5D5D5",
+          borderRadius: 30,
+        }}
+      >
+        <thead>
+          <tr
+            style={{
+              borderBottom: "1px solid #CCCCCC",
+              paddingBottom: "10px",
+              color: "#252525",
+            }}
+          >
+            <th
+              style={{
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                fontSize: "12px",
+                fontWeight: "bold",
+                width: "500px",
+              }}
+            >
+              Position
+            </th>
+            <th
+              style={{
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                fontSize: "12px",
+                fontWeight: "bold",
+                width: "500px",
+              }}
+            >
+              Company
+            </th>
+            <th
+              style={{
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                fontSize: "12px",
+                fontWeight: "bold",
+                width: "500px",
+              }}
+            >
+              Location
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {addedJobs.length === 0 && (
+            <tr>
+              <td colSpan="3" style={{ textAlign: "center" }}>
+                No addedJobs found
+              </td>
+            </tr>
+          )}
+
+          {addedJobs.map((job, index) => (
+            <tr
+              key={index}
+              style={{ borderBottom: "1px solid #CCCCCC", paddingTop: "10px" }}
+            >
+              <td style={{ fontSize: "16px", width: 40, fontWeight: "bold" }}>
+                {job.position_name}
+              </td>
+              <td style={{ fontSize: "16px", width: 40 }}>
+                {job.company_name}
+              </td>
+              <td style={{ fontSize: "16px", width: 40 }}>{job.location}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const SavedJobs = ({ jobs }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        width: "30%",
+        backgroundColor: "#FF3953",
+        height: "30vh",
+        borderRadius: "20px",
+        cursor: "pointer",
+        opacity: "1.0",
+        transition: "opacity 0.3s ease",
+      }}
+      onMouseEnter={(event) => {
+        event.target.style.opacity = "0.9";
+      }}
+      onMouseLeave={(event) => {
+        event.target.style.opacity = "1.0";
+      }}
+    >
+      <IoIosSave size={50} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <h2 style={{ fontWeight: "700" }}>Saved Jobs</h2>
+        You haven't saved any jobs yet.
+      </div>
     </div>
   );
 };
