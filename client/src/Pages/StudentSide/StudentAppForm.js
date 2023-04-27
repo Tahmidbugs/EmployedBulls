@@ -34,7 +34,7 @@ const FormContainer = () => {
   console.log("user at form container: ", user);
 
   const [fullName, setFullName] = useState("");
-  const [studentId, setStudentId] = useState("");
+  const [studentId, setStudentId] = useState(user.uid);
   const [email, setEmail] = useState(user.email);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
@@ -167,7 +167,7 @@ const FormContainer = () => {
         marginTop: "5%",
         backgroundImage:
           "url(https://www.transparenttextures.com/patterns/batthern.png)",
-        minHeight: "100vh"
+        minHeight: "100vh",
       }}
     >
       <h1>Student Application Form</h1>
@@ -185,8 +185,9 @@ const FormContainer = () => {
           <Form.Label>Student ID</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter Student ID"
+            placeholder={user.uid}
             onChange={(e) => setStudentId(e.target.value)}
+            disabled
           />
         </Form.Group>
 
@@ -196,6 +197,7 @@ const FormContainer = () => {
             type="text"
             placeholder={user.email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled
           />
         </Form.Group>
 
@@ -227,37 +229,37 @@ const FormContainer = () => {
         </Form.Group>
 
         <Form.Group controlId="formBasicMajor">
-  <Form.Label>Major</Form.Label>
-  <Form.Control as="select" onChange={(e) => setMajor(e.target.value)}>
-    <option value="">Select a Major</option>
-    <option value="Computer Science">Computer Science</option>
-    <option value="Computer Engineering">Computer Engineering</option>
-    <option value="Biology">Biology</option>
-    <option value="Business">Business</option>
-    <option value="">Select a Major</option>
-<option value="Psychology">Psychology</option>
-<option value="Chemistry">Chemistry</option>
-<option value="English">English</option>
-<option value="History">History</option>
-<option value="Mathematics">Mathematics</option>
-<option value="Political Science">Political Science</option>
-<option value="Environmental Science">Environmental Science</option>
-<option value="Graphic Design">Graphic Design</option>
-<option value="Journalism">Journalism</option>
-<option value="Sociology">Sociology</option>
-<option value="Nursing">Nursing</option>
-<option value="Education">Education</option>
-<option value="Fine Arts">Fine Arts</option>
-<option value="Marketing">Marketing</option>
-<option value="Physics">Physics</option>
-<option value="Anthropology">Anthropology</option>
-<option value="Philosophy">Philosophy</option>
-<option value="International Relations">International Relations</option>
-<option value="Public Health">Public Health</option>
-
-  </Form.Control>
-</Form.Group>
-
+          <Form.Label>Major</Form.Label>
+          <Form.Control as="select" onChange={(e) => setMajor(e.target.value)}>
+            <option value="">Select a Major</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Computer Engineering">Computer Engineering</option>
+            <option value="Biology">Biology</option>
+            <option value="Business">Business</option>
+            <option value="">Select a Major</option>
+            <option value="Psychology">Psychology</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="English">English</option>
+            <option value="History">History</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Political Science">Political Science</option>
+            <option value="Environmental Science">Environmental Science</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Journalism">Journalism</option>
+            <option value="Sociology">Sociology</option>
+            <option value="Nursing">Nursing</option>
+            <option value="Education">Education</option>
+            <option value="Fine Arts">Fine Arts</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Physics">Physics</option>
+            <option value="Anthropology">Anthropology</option>
+            <option value="Philosophy">Philosophy</option>
+            <option value="International Relations">
+              International Relations
+            </option>
+            <option value="Public Health">Public Health</option>
+          </Form.Control>
+        </Form.Group>
 
         <div>
           <label htmlFor="resume">Upload Resume:</label>

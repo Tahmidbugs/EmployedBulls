@@ -57,7 +57,7 @@ const AddJobModal = ({ handleModalClose, jobcount, setJobCount }) => {
       company_name,
       position_name,
       job_description,
-      jobLocation,
+      location: jobLocation,
       salary,
       hiring,
       recruiter: user.email,

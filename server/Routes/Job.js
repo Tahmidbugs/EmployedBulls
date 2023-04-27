@@ -10,16 +10,27 @@ router.post("/addJob", async (req, res) => {
       job_description,
       salary,
       hiring,
+      location,
       recruiter,
     } = req.body;
 
     const newJob = await db.query(
-      "INSERT INTO job (company_name, position_name, jobdescription, salary, hiring, recruiter) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [company_name, position_name, job_description, salary, hiring, recruiter]
+      "INSERT INTO job (company_name, position_name, jobdescription, salary, hiring,location, recruiter) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [
+        company_name,
+        position_name,
+        job_description,
+        salary,
+        hiring,
+        location,
+        recruiter,
+      ]
     );
+    console.log("new job", newJob.rows[0]);
 
     res.status(201).json(newJob.rows[0]);
   } catch (err) {
+    console.error(err.message);
     if (err.message.includes("violates check constraint")) {
       res
         .status(400)
