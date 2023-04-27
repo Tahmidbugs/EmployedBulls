@@ -75,24 +75,33 @@ const ExploreJobs = () => {
   };
 
   // Function to filter by job type
+
   const handleJobTypeFilter = (selectedType) => {
     setSelectedType(selectedType);
-    filteredJobs(
-      jobs.filter(
-        (job) => job.type === selectedType || selectedType === "All Types"
-      )
-    );
+
+    if (selectedType === "All Types") {
+      setJobs(jobs);
+    } else {
+      const filteredJobs = jobs.filter((job) =>
+        job.jobtypes.includes(selectedType)
+      );
+      setJobs(filteredJobs);
+    }
   };
 
   // Function to filter by salary
   const handleSalaryFilter = (selectedOrder) => {
     setSelectedOrder(selectedOrder);
-    if (selectedOrder === "Low to High") {
-      filteredJobs(jobs.sort((a, b) => a.salary - b.salary));
-    } else if (selectedOrder === "High to Low") {
-      filteredJobs(jobs.sort((a, b) => b.salary - a.salary));
+    console.log(selectedOrder);
+    if (selectedOrder === "lowest to highest") {
+      const sortedJobs = [...jobs].sort((a, b) => a.salary - b.salary);
+      setJobs(sortedJobs);
+    } else if (selectedOrder === "highest to lowest") {
+      const sortedJobs = [...jobs].sort((a, b) => b.salary - a.salary);
+      setJobs(sortedJobs);
     } else {
-      filteredJobs(jobs);
+      // Reset to original jobs
+      setJobs(jobs);
     }
   };
 
@@ -100,7 +109,7 @@ const ExploreJobs = () => {
     const fetchJobs = async () => {
       try {
         const res = await axios.get("http://localhost:8800/api/job/");
-        setJobs([...jobs, ...res.data]); // add the new data to the existing array
+        setJobs(res.data); // add the new data to the existing array
         console.log("Successful");
       } catch (error) {
         console.log(error);
@@ -199,8 +208,10 @@ const ExploreJobs = () => {
                     }
                   >
                     <option value="Company">Company</option>
-                    <option value="HUB DINING">HUB DINING</option>
-                    <option value="ENGINEERING">ENGINEERING</option>
+                    <option value="The Hub Dining">The Hub Dining</option>
+                    <option value="College of Engineering">
+                      College of Engineering
+                    </option>
                     <option value="MUMA">MUMA</option>
                   </select>
                 )}
@@ -214,9 +225,10 @@ const ExploreJobs = () => {
                       color: "#333",
                       cursor: "pointer",
                     }}
-                    onChange={(event) =>
-                      handleJobTypeFilter(event.target.value)
-                    }
+                    onChange={(event) => {
+                      console.log("event", event.target.value);
+                      handleJobTypeFilter(event.target.value);
+                    }}
                   >
                     <option value="">Select</option>
                     <option value="Remote">Remote</option>
@@ -341,7 +353,7 @@ const JobPage = ({ info }) => {
   const [isSaved, setIsSaved] = useState(false);
   const { user, dispatch } = useContext(AuthContext);
 
-  console.log("viewing job page", info.id);
+  // console.log("viewing job page", info.id);
   const handleApply = async () => {
     try {
       const requestData = {
