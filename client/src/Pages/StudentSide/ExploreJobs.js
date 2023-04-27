@@ -21,6 +21,8 @@ const ExploreJobs = () => {
     setFilter(event.target.value);
   };
 
+  const [feeltered, setFeeltered] = useState([]);
+
   const [jobs, setJobs] = useState([
     // add more jobs here...
   ]);
@@ -80,12 +82,12 @@ const ExploreJobs = () => {
     setSelectedType(selectedType);
 
     if (selectedType === "All Types") {
-      setJobs(jobs);
+      setFeeltered(jobs);
     } else {
       const filteredJobs = jobs.filter((job) =>
         job.jobtypes.includes(selectedType)
       );
-      setJobs(filteredJobs);
+      setFeeltered(filteredJobs);
     }
   };
 
@@ -95,13 +97,13 @@ const ExploreJobs = () => {
     console.log(selectedOrder);
     if (selectedOrder === "lowest to highest") {
       const sortedJobs = [...jobs].sort((a, b) => a.salary - b.salary);
-      setJobs(sortedJobs);
+      setFeeltered(sortedJobs);
     } else if (selectedOrder === "highest to lowest") {
       const sortedJobs = [...jobs].sort((a, b) => b.salary - a.salary);
-      setJobs(sortedJobs);
+      setFeeltered(sortedJobs);
     } else {
       // Reset to original jobs
-      setJobs(jobs);
+      setFeeltered(jobs);
     }
   };
 
@@ -117,7 +119,7 @@ const ExploreJobs = () => {
     };
 
     fetchJobs();
-  }, []);
+  }, [jobs]);
 
   const filteredJobs =
     filter === "all" ? jobs : jobs.filter((job) => job.hiring > 0);
@@ -271,7 +273,7 @@ const ExploreJobs = () => {
             width: "100%",
           }}
         >
-          {filteredJobs.map((job) => (
+          {feeltered.map((job) => (
             <JobCard key={job.id} job={job} />
           ))}
         </div>
