@@ -30,13 +30,14 @@ import AppliedJobs from "./Pages/StudentSide/AppliedJobs";
 import StudentRecView from "./Pages/StudentSide/studentRecView";
 import LandingPage from "./Pages/LandingPage";
 import ExploreJobs from "./Pages/StudentSide/ExploreJobs";
+import Applicants from "./Pages/RecruiterSide/Dashboard Components/Applicants";
 
 function App() {
   const { user, dispatch } = useContext(AuthContext);
 
   console.log("state of app changed, user now is: ", user);
   return (
-    <div>
+    <div style={{ fontFamily: "Roboto" }}>
       <Router>
         {/* <button
           style={{
@@ -121,6 +122,7 @@ function App() {
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/studentrecview" element={<StudentRecView />} />
           <Route path="/explorecompanies" element={<ExploreCompanies />} />
+          <Route path="/viewApplicants" element={<Applicants />} />
         </Routes>
       </Router>
     </div>

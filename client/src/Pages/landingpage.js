@@ -28,7 +28,14 @@ function LandingPage() {
   const [isHovered2, setIsHovered2] = React.useState(false);
 
   return (
-    <div style={{ backgroundColor: "#D9D9D9 ", fontFamily: "Roboto" }}>
+    <div
+      style={{
+        backgroundColor: "#D9D9D9 ",
+        fontFamily: "Roboto",
+        backgroundImage:
+          "url(https://www.transparenttextures.com/patterns/batthern.png)",
+      }}
+    >
       <header
         style={{
           backgroundColor: "#242424",

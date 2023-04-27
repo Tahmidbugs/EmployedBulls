@@ -1,28 +1,60 @@
 import React from "react";
-import Nav from "./Navbar";
+import Nav from "../RecruiterSide/Dashboard Components/Navbar";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 function StudentRecView(props) {
-  const { name, studentId, email, gpa, major } = props;
-
-  // Dummy data
+  const location = useLocation();
+  const applicant = new URLSearchParams(location.search).get("applicant");
   const resumeUrl =
     "https://firebasestorage.googleapis.com/v0/b/employedbullsfirebase.appspot.com/o/files%2FAbdurRahmanBinSharif_Resume_Spring23.pdf?alt=media&token=073fb1b0-ba4d-4d13-aaa7-497c65cfa4ce";
+  const [student, setStudent] = React.useState({
+    full_name: "",
+    email: "",
+    phone: "",
+    gpa: "",
+    profilepic: "",
+    resume: "",
+  });
+  console.log("trying to get student info", applicant);
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:8800/api/student/getStudent", {
+        params: {
+          email: applicant,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setStudent(res.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        minHeight: "100vh",
+        backgroundImage:
+          "url(https://www.transparenttextures.com/patterns/batthern.png)",
+      }}
+    >
       <Nav />
       <div
         style={{
           width: "80%",
-          marginLeft: "100px",
           marginTop: "50px",
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <h1 style={{ animation: "smooth-move 1.5s infinite" }}>
-          Applicant Information
-        </h1>
+        <h1 style={{ color: "#FF3953" }}>Applicant Information</h1>
 
         <style>
           {`
@@ -39,7 +71,11 @@ function StudentRecView(props) {
             }
           `}
         </style>
-
+        <img
+          src={student.profilepic}
+          alt="logo"
+          style={{ height: 150, width: 150, borderRadius: 10 }}
+        />
         <p
           style={{
             fontFamily: "Arial, sans-serif",
@@ -48,7 +84,7 @@ function StudentRecView(props) {
             marginBottom: "10px",
           }}
         >
-          Name: Abdur
+          Name: {student.full_name}
         </p>
         <p
           style={{
@@ -57,7 +93,7 @@ function StudentRecView(props) {
             marginBottom: "5px",
           }}
         >
-          Student ID: 123456
+          Student ID: {student.student_id}
         </p>
         <p
           style={{
@@ -66,7 +102,7 @@ function StudentRecView(props) {
             marginBottom: "5px",
           }}
         >
-          Email: abdurmonke@example.com
+          Email: {student.email}
         </p>
         <p
           style={{
@@ -75,7 +111,7 @@ function StudentRecView(props) {
             marginBottom: "5px",
           }}
         >
-          GPA: 3.0
+          GPA: {student.gpa}
         </p>
         <p
           style={{
@@ -84,10 +120,15 @@ function StudentRecView(props) {
             marginBottom: "10px",
           }}
         >
-          Major: Computer Science
+          Major: {student.major}
         </p>
-
-        <iframe src={resumeUrl} width="100%" height="600px"></iframe>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <iframe
+            src={student.resume}
+            title="resume"
+            style={{ width: "1000px", height: "800px", border: "none" }}
+          />
+        </div>
       </div>
     </div>
   );

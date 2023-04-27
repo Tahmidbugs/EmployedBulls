@@ -69,4 +69,43 @@ router.get("/getJobsByRecruiter", async (req, res) => {
   }
 });
 
+router.delete("/deleteJob", async (req, res) => {
+  try {
+    const { recruiter, position_name } = req.query;
+    const deletedJob = await db.query(
+      "DELETE FROM job WHERE recruiter=$1 AND position_name=$2 RETURNING *",
+      [recruiter, position_name]
+    );
+    if (deletedJob.rows.length === 0) {
+      return res.status(404).json({ error: "Job not found" });
+    }
+    console.log("deleted job", deletedJob.rows[0]);
+    res.status(200).json({ message: "Job deleted successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.get("/applicants", async (req, res) => {
+  const { recruiter, position_name } = req.query;
+
+  try {
+    const applicants = await db.query(
+      `
+      SELECT s.*
+      FROM student_applicants s
+      INNER JOIN applications a ON s.email = a.student_id
+      WHERE a.recruiter = $1 AND a.position_name = $2;
+    `,
+      [recruiter, position_name]
+    );
+
+    res.json(applicants.rows);
+    console.log(applicants.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 module.exports = router;

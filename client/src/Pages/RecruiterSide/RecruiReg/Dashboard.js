@@ -17,7 +17,8 @@ import { Link } from "react-router-dom";
 function Dashboard() {
   const [addedJobs, setAddedJobs] = React.useState([]);
   const { user, dispatch } = useContext(AuthContext);
-
+  const [jobModal, setJobModal] = useState(false);
+  const [jobcount, setJobCount] = React.useState(0);
   //fetch added jobs by recruiter user.email
   React.useEffect(() => {
     axios
@@ -32,7 +33,7 @@ function Dashboard() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [jobcount]);
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
@@ -54,11 +55,22 @@ function Dashboard() {
           <h5>Hello Recruiter! Here is a summary of your hiring journey.</h5>
           <br />
           <br />
+          {jobModal && (
+            <AddJobModal
+              handleModalClose={() => setJobModal(false)}
+              jobcount={jobcount}
+              setJobCount={setJobCount}
+            />
+          )}
 
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <div style={{ width: "33%" }}>
               <h5>Add a new job</h5>
-              <AddJob />
+              <AddJob
+                jobModal={jobModal}
+                setJobModal={setJobModal}
+                totalJobs={addedJobs.length}
+              />
             </div>
 
             <div className="dashboard__section dashboard__section--inbox">
@@ -97,9 +109,9 @@ function Dashboard() {
   );
 }
 
-const AddJob = () => {
-  // Beautiful button for adding job
-  // lottie animation
+const AddJob = ({ jobModal, setJobModal, totalJobs }) => {
+  console.log("total jobs", totalJobs);
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -109,7 +121,7 @@ const AddJob = () => {
     },
   };
 
-  const [jobModal, setJobModal] = useState(false);
+  const [totalJobsCount, setTotalJobsCount] = React.useState(0);
 
   return (
     <div
@@ -120,12 +132,18 @@ const AddJob = () => {
         justifyContent: "center",
       }}
     >
-      <p>You have added {} jobs</p>
+      <div
+        className="count-box"
+        style={{ textAlign: "center", animation: "count-up 2s forwards" }}
+      >
+        <p style={{ fontSize: "24px", fontWeight: "bold", margin: "0" }}>
+          You have added: {totalJobs} jobs!
+        </p>
+      </div>
       <button className="btn btn--primary" onClick={() => setJobModal(true)}>
         <Lottie options={defaultOptions} height={100} width={100} />
       </button>
       <p>Add a new job</p>
-      {jobModal && <AddJobModal handleModalClose={() => setJobModal(false)} />}
     </div>
   );
 };

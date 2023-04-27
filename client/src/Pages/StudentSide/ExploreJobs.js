@@ -253,7 +253,7 @@ const ExploreJobs = () => {
             // alignItems: "center",
             flexDirection: "column",
             marginTop: "50px",
-            width: "90%",
+            width: "100%",
           }}
         >
           {filteredJobs.map((job) => (
@@ -295,7 +295,7 @@ function JobCard({ job }) {
           marginBottom: "20px",
           border: "1px solid #252525",
           color: "#D9D9D9",
-          width: "60%",
+          width: "72%",
           display: "flex",
           cursor: "pointer",
           flexDirection: "column",

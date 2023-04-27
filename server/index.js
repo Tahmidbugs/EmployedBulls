@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoute = require("./Routes/Auth");
 const jobRoute = require("./Routes/Job");
+const studentRoute = require("./Routes/Student");
 const http = require("http").createServer(app);
 const db = require("./db");
 const multer = require("multer");
@@ -86,6 +87,7 @@ io.on("connection", (socket) => {
 // use routes
 app.use("/api/auth", authRoute);
 app.use("/api/job", jobRoute);
+app.use("/api/student", studentRoute);
 
 app.post("/apply-to-job", async (req, res) => {
   try {

@@ -136,7 +136,7 @@ function JobCard({ job }) {
           width: "15%",
         }}
       >
-        <h4>Status: Pending</h4>
+        <h4>Status: Application submitted</h4>
         <button
           style={{
             backgroundColor: "#252525",

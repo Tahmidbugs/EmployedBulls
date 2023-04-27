@@ -2,7 +2,10 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../../../Context/AuthContext";
 import { Bars } from "react-loader-spinner";
 import axios from "axios";
-const AddJobModal = ({ handleModalClose }) => {
+import Lottie from "react-lottie";
+
+import animationdata from "../../../Assets/Lotties/added.json";
+const AddJobModal = ({ handleModalClose, jobcount, setJobCount }) => {
   const [company_name, setCompany_name] = useState("");
   const [position_name, setPosition_name] = useState("");
   const [job_description, setJob_description] = useState("");
@@ -23,6 +26,15 @@ const AddJobModal = ({ handleModalClose }) => {
     "USF Bookstore",
   ];
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationdata,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   const jobtype = [
     "On Campus",
     "Full Time",
@@ -37,6 +49,7 @@ const AddJobModal = ({ handleModalClose }) => {
   // const [selectedjobtype, setSelectedjobtype] = useState(jobtype[0]);
   const [loading, setLoading] = useState(false);
   const [selectedjobtypes, setSelectedjobtypes] = useState(jobtype[0]);
+  const [showAnimation, setShowAnimation] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,12 +63,12 @@ const AddJobModal = ({ handleModalClose }) => {
       recruiter: user.email,
     };
     console.log("trying to add job", job);
-    // loading  = true;
     setLoading(true);
     axios
       .post("http://localhost:8800/api/job/addJob", job)
       .then((res) => {
         console.log(res);
+        setShowAnimation(true); // Start animation when job is added
       })
       .catch((err) => {
         console.log(err);
@@ -64,13 +77,16 @@ const AddJobModal = ({ handleModalClose }) => {
         } else {
           alert("Something went wrong!");
         }
+      })
+      .finally(() => {
+        setLoading(false);
+        setTimeout(() => {
+          setShowAnimation(false); // Stop animation after 4 seconds
+          handleModalClose();
+          setJobCount(jobcount + 1);
+        }, 4000);
       });
-
-    // loading = false;
-    setLoading(false);
-    handleModalClose();
   };
-
   return (
     <div
       style={{
@@ -98,13 +114,32 @@ const AddJobModal = ({ handleModalClose }) => {
           overflow: "auto",
         }}
       >
+        {showAnimation && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",
+              top: "0",
+              left: "0",
+              width: "100%",
+              height: "100%",
+              background: "rgba(0, 0, 0, 0.8)",
+              zIndex: "999",
+            }}
+          >
+            <Lottie options={defaultOptions} height={220} width={220} />
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: "20px",
+              marginBottom: "15px",
             }}
           >
             <h2
@@ -132,52 +167,95 @@ const AddJobModal = ({ handleModalClose }) => {
               X
             </button>
           </div>
+
           <div
             style={{
-              marginBottom: "20px",
+              marginBottom: "15px",
             }}
           >
             <div
               style={{
-                marginBottom: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              <label
-                htmlFor="company_name"
+              <div
                 style={{
-                  display: "block",
-                  marginBottom: "5px",
-                  fontSize: "16px",
-                  fontWeight: "bold",
+                  marginBottom: "8px",
                 }}
               >
-                Company Name:
-              </label>
-              <select
-                id="company_name"
-                value={company_name}
-                onChange={(e) => setCompany_name(e.target.value)}
+                <label
+                  htmlFor="company_name"
+                  style={{
+                    display: "block",
+                    marginBottom: "5px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Company Name:
+                </label>
+                <select
+                  id="company_name"
+                  value={company_name}
+                  onChange={(e) => setCompany_name(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    border: "none",
+                    boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <option value="">Select a company</option>
+                  {companies.map((company, index) => (
+                    <option
+                      key={index}
+                      value={company}
+                      style={{ backgroundColor: "#FD3953", borderRadius: 6 }}
+                    >
+                      {company}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div
                 style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  border: "none",
-                  boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
-                  marginBottom: "10px",
+                  marginBottom: "8px",
                 }}
               >
-                <option value="">Select a company</option>
-                {companies.map((company, index) => (
-                  <option key={index} value={company}>
-                    {company}
-                  </option>
-                ))}
-              </select>
+                <label
+                  htmlFor="jobLocation"
+                  style={{
+                    display: "block",
+                    marginBottom: "5px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Job Location:
+                </label>
+                <input
+                  type="text"
+                  id="jobLocation"
+                  value={jobLocation}
+                  onChange={(e) => setJobLocation(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    border: "none",
+                    boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
+                    marginBottom: "8px",
+                  }}
+                />
+              </div>
             </div>
-
             <div
               style={{
-                marginBottom: "10px",
+                marginBottom: "8px",
               }}
             >
               <label
@@ -202,11 +280,11 @@ const AddJobModal = ({ handleModalClose }) => {
                   borderRadius: "5px",
                   border: "none",
                   boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
-                  marginBottom: "10px",
+                  marginBottom: "8px",
                 }}
               />
             </div>
-            <div style={{ marginBottom: "20px" }}>
+            <div style={{ marginBottom: "15px" }}>
               <label
                 htmlFor="jobTypes"
                 style={{
@@ -237,7 +315,7 @@ const AddJobModal = ({ handleModalClose }) => {
                     }
                     style={{
                       background: selectedjobtypes.includes(jobtype)
-                        ? "#007AFF"
+                        ? "#FD3953"
                         : "#E5E5EA",
                       color: selectedjobtypes.includes(jobtype)
                         ? "#FFF"
@@ -246,10 +324,18 @@ const AddJobModal = ({ handleModalClose }) => {
                       borderRadius: "5px",
                       padding: "10px",
                       marginRight: "10px",
-                      marginBottom: "10px",
+                      marginBottom: "8px",
                       cursor: "pointer",
+                      opacity: 1,
+                      transform: "opacity 0.5s ease-in-out",
                     }}
                     type="button"
+                    onMouseEnter={(event) => {
+                      event.target.style.opacity = "0.6";
+                    }}
+                    onMouseLeave={(event) => {
+                      event.target.style.opacity = "1.0";
+                    }}
                   >
                     {jobtype}
                   </button>
@@ -258,7 +344,7 @@ const AddJobModal = ({ handleModalClose }) => {
             </div>
             <div
               style={{
-                marginBottom: "10px",
+                marginBottom: "8px",
               }}
             >
               <label
@@ -282,102 +368,80 @@ const AddJobModal = ({ handleModalClose }) => {
                   borderRadius: "5px",
                   border: "none",
                   boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
-                  marginBottom: "10px",
+                  marginBottom: "8px",
                 }}
               />
             </div>
+
             <div
               style={{
-                marginBottom: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              <label
-                htmlFor="jobLocation"
+              <div
                 style={{
-                  display: "block",
-                  marginBottom: "5px",
-                  fontSize: "16px",
-                  fontWeight: "bold",
+                  marginBottom: "8px",
                 }}
               >
-                Job Location:
-              </label>
-              <input
-                type="text"
-                id="jobLocation"
-                value={jobLocation}
-                onChange={(e) => setJobLocation(e.target.value)}
+                <label
+                  htmlFor="salary"
+                  style={{
+                    display: "block",
+                    marginBottom: "5px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Salary:
+                </label>
+                <input
+                  type="text"
+                  id="salary"
+                  value={salary}
+                  onChange={(e) => setSalary(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    border: "none",
+                    boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
+                    marginBottom: "8px",
+                  }}
+                />
+              </div>
+              <div
                 style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  border: "none",
-                  boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
-                  marginBottom: "10px",
-                }}
-              />
-            </div>
-            <div
-              style={{
-                marginBottom: "10px",
-              }}
-            >
-              <label
-                htmlFor="salary"
-                style={{
-                  display: "block",
-                  marginBottom: "5px",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                }}
-              >
-                Salary:
-              </label>
-              <input
-                type="text"
-                id="salary"
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  border: "none",
-                  boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
-                  marginBottom: "10px",
-                }}
-              />
-            </div>
-            <div
-              style={{
-                marginBottom: "10px",
-              }}
-            >
-              <label
-                htmlFor="hiring"
-                style={{
-                  display: "block",
-                  marginBottom: "5px",
-                  fontSize: "16px",
-                  fontWeight: "bold",
+                  marginBottom: "8px",
                 }}
               >
-                Hiring:
-              </label>
-              <input
-                type="text"
-                id="hiring"
-                value={hiring}
-                onChange={(e) => setHiring(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  border: "none",
-                  boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
-                  marginBottom: "10px",
-                }}
-              />
+                <label
+                  htmlFor="hiring"
+                  style={{
+                    display: "block",
+                    marginBottom: "5px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Hiring:
+                </label>
+                <input
+                  type="text"
+                  id="hiring"
+                  value={hiring}
+                  onChange={(e) => setHiring(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    border: "none",
+                    boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.3)",
+                    marginBottom: "8px",
+                  }}
+                />
+              </div>
             </div>
           </div>
           <div
@@ -396,7 +460,7 @@ const AddJobModal = ({ handleModalClose }) => {
                   height: "100px",
                 }}
               >
-                <Bars color="#00BFFF" />
+                <Bars color="#FD3953" />
               </div>
             ) : (
               <button
@@ -406,7 +470,7 @@ const AddJobModal = ({ handleModalClose }) => {
                   padding: "10px",
                   borderRadius: "5px",
                   border: "none",
-                  background: "#00BFFF",
+                  background: "#FD3953",
                   color: "#fff",
                   fontSize: "16px",
                   fontWeight: "bold",
