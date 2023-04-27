@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import './Recruitstyle.css';
+// import './Recruitstyle.css';
 export default function RecruiterReg() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -27,103 +27,135 @@ export default function RecruiterReg() {
     resetForm();
   }
   return (
-    <div className='form-container'>
-      <h1>Recruiter Application Page</h1>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        backgroundColor: '#F5F5F5',
+        backgroundImage:
+          'url(https://www.transparenttextures.com/patterns/batthern.png)',
+      }}
+    >
+      <h1 style={{ textAlign: 'center', color: '#FF3953', height: '20px' }}>
+        Recruiter Application Page
+      </h1>
       <Formik
         initialValues={formData}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <div className='form-group'>
-              <label htmlFor='firstName'>First Name: </label>
+          <Form
+            style={{
+              height: '70vh',
+              width: '30%',
+              backgroundColor: '#252525',
+              color: '#D9D9D9 ',
+              borderRadius: 20,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginTop: 20,
+            }}
+          >
+            <div style={{ marginBottom: '10px' }}>
+              <label style={{ display: 'block' }}>First Name:</label>
               <Field
                 type='text'
                 name='firstName'
                 placeholder='First name'
-                className='form-control'
+                style={{ width: '100%', padding: '10px' }}
               />
               <ErrorMessage
                 name='firstName'
                 component='div'
-                className='form-error'
+                style={{ color: 'red', fontSize: '14px' }}
               />
             </div>
-            <div className='form-group'>
-              <label htmlFor='lastName'>Last Nam: </label>
+            <div style={{ marginBottom: '10px' }}>
+              <label style={{ display: 'block' }}>Last Name:</label>
               <Field
                 type='text'
                 name='lastName'
                 placeholder='Last name'
-                className='form-control'
+                style={{ width: '100%', padding: '10px' }}
               />
               <ErrorMessage
                 name='lastName'
                 component='div'
-                className='form-error'
+                style={{ color: 'red', fontSize: '14px' }}
               />
             </div>
-            <div className='form-group'>
-              <label htmlFor='email'>Email: </label>
+            <div style={{ marginBottom: '10px' }}>
+              <label style={{ display: 'block' }}>Email:</label>
               <Field
                 type='email'
                 name='email'
                 placeholder='Email'
-                className='form-control'
+                style={{ width: '100%', padding: '10px' }}
               />
               <ErrorMessage
                 name='email'
                 component='div'
-                className='form-error'
+                style={{ color: 'red', fontSize: '14px' }}
               />
             </div>
-            <div className='form-group'>
-              <label htmlFor='password'>Password: </label>
+            <div style={{ marginBottom: '10px' }}>
+              <label style={{ display: 'block' }}>Password:</label>
               <Field
                 type='password'
                 name='password'
                 placeholder='Password'
-                className='form-control'
+                style={{ width: '100%', padding: '10px' }}
               />
               <ErrorMessage
                 name='password'
                 component='div'
-                className='form-error'
+                style={{ color: 'red', fontSize: '14px' }}
               />
             </div>
-            <div className='form-group'>
-              <label htmlFor='text'>Company name: </label>
+            <div style={{ marginBottom: '10px' }}>
+              <label style={{ display: 'block' }}>Company name:</label>
               <Field
                 type='text'
                 name='company'
                 placeholder='Company name'
-                className='form-control'
+                style={{ width: '100%', padding: '10px' }}
               />
               <ErrorMessage
                 name='company'
                 component='div'
-                className='form-error'
+                style={{ color: 'red', fontSize: '14px' }}
               />
             </div>
-            <div className='form-group'>
-              <label htmlFor='text'>Phone: </label>
+            <div style={{ marginBottom: '10px' }}>
+              <label style={{ display: 'block' }}>Phone:</label>
               <Field
                 type='text'
                 name='phone'
                 placeholder='Phone'
-                className='form-control'
+                style={{ width: '100%', padding: '10px' }}
               />
               <ErrorMessage
                 name='phone'
                 component='div'
-                className='form-error'
+                style={{ color: 'red', fontSize: '14px' }}
               />
             </div>
-            <div className='form-group'>
+            <div style={{ textAlign: 'center' }}>
               <button
                 type='submit'
-                className='btn btn-primary'
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#FF3953',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                }}
                 disabled={isSubmitting}
               >
                 Register
