@@ -1,8 +1,10 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./studentProfile.css";
-
+import { AuthContext } from "../../Context/AuthContext";
+import { useState, useEffect } from "react";
+import Nav from "./Navbar";
 const StudentProfile = () => {
   const firstname = useRef();
   const lastname = useRef();
@@ -10,6 +12,14 @@ const StudentProfile = () => {
   const GPA = useRef();
   const degree = useRef();
   const navigate = useNavigate();
+  const [student, setStudent] = useState({});
+  const { user, dispatch } = useContext(AuthContext);
+  const [jobs, setJobs] = useState([]); // add a new state for job data
+
+
+
+
+  
 
   const submitData = async () => {
     const name = firstname + " " + lastname;
@@ -29,16 +39,73 @@ const StudentProfile = () => {
     }
   };
 
+  useEffect(() => {
+    let isMounted = true; // add a flag to check if component is mounted
+    axios
+      .get("http://localhost:8800/api/student/getStudentInfo", {
+        params: {
+          email: user.email,
+        },
+      })
+      .then((res) => {
+        if (isMounted) {
+          // only update state if component is still mounted
+          setStudent(res.data[0]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // make second axios call only when student data is available
+    axios
+      .get("http://localhost:8800/api/student/getStudentJobs", {
+        params: {
+          email: user.email,
+        },
+      })
+      .then((res) => {
+        if (isMounted) {
+          // only update state if component is still mounted
+          setJobs(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }, [user.email]);
+
   return (
+
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        backgroundImage:
+          "url(https://www.transparenttextures.com/patterns/batthern.png)",
+        backgroundColor: "#D9D9D9 ",
+      }}
+    >
+      <Nav />
+      <div
+        style={{
+          width: "80%",
+          marginLeft: "100px",
+          marginTop: "50px",
+          display: "flex",
+          flexDirection: "column",
+          // alignItems: "center",
+        }}
+      >
+
+    
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        backgroundColor: "#F0FFF4",
         padding: "30px",
-        borderRadius: "10px",
-        boxShadow: "0px 5px 10px #888888",
+        
       }}
     >
       <div
@@ -48,9 +115,12 @@ const StudentProfile = () => {
           width: "100%",
         }}
       >
+        
+        
         <h2 style={{ margin: 0 }}>Set up your profile</h2>
-        <button style={{ margin: 0 }}>skip</button>
+        
       </div>
+      
       <div
         className="accountSetup"
         style={{ display: "flex", flexDirection: "column", marginTop: "20px" }}
@@ -86,7 +156,7 @@ const StudentProfile = () => {
           </div>
         </div>
         <input
-          placeholder="First Name"
+          placeholder={student.full_name}
           ref={firstname}
           style={{
             padding: "10px",
@@ -96,19 +166,9 @@ const StudentProfile = () => {
             marginBottom: "20px",
           }}
         />
+        
         <input
-          placeholder="Last Name"
-          ref={lastname}
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            outline: "none",
-            border: "1px solid #DDDDDD",
-            marginBottom: "20px",
-          }}
-        />
-        <input
-          placeholder="UID"
+          placeholder={student.student_id}
           ref={UID}
           style={{
             padding: "10px",
@@ -119,7 +179,7 @@ const StudentProfile = () => {
           }}
         />
         <input
-          placeholder="USF Major"
+          placeholder={student.major}
           style={{
             padding: "10px",
             borderRadius: "5px",
@@ -128,19 +188,9 @@ const StudentProfile = () => {
             marginBottom: "20px",
           }}
         />
+        
         <input
-          placeholder="Degree"
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            outline: "none",
-            border: "1px solid #DDDDDD",
-            marginBottom: "20px",
-          }}
-          ref={degree}
-        />
-        <input
-          placeholder="Major GPA"
+          placeholder={student.gpa}
           style={{
             padding: "10px",
             borderRadius: "5px",
@@ -150,26 +200,7 @@ const StudentProfile = () => {
           }}
           ref={GPA}
         />
-        <input
-          placeholder="Preferred Job Type"
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            outline: "none",
-            border: "1px solid #DDDDDD",
-            marginBottom: "20px",
-          }}
-        />
-        <input
-          placeholder="Availability"
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            outline: "none",
-            border: "1px solid #DDDDDD",
-            marginBottom: "20px",
-          }}
-        />
+        
       </div>
       <button
         onClick={submitData}
@@ -189,6 +220,9 @@ const StudentProfile = () => {
         Save changes
       </button>
     </div>
+    </div>
+    </div>
+
   );
 };
 
