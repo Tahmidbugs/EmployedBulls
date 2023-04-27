@@ -5,6 +5,8 @@ import { RxDashboard } from "react-icons/rx";
 import { FcBusiness, FcSettings, FcList } from "react-icons/fc";
 import { AiFillMessage } from "react-icons/ai";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { AiFillSetting } from "react-icons/ai";
+import { BsBuildingsFill } from "react-icons/bs";
 import { ImExit } from "react-icons/im";
 import { AuthContext } from "../../Context/AuthContext";
 import Logo from "../../Assets/logo.gif";
@@ -23,8 +25,8 @@ const Nav = () => {
         flexDirection: "column",
         alignItems: "flex-start",
         backgroundColor: "#252525",
-        paddingLeft: "3rem",
-        padding: "1rem",
+
+        padding: "1.5rem",
         width: "15%",
       }}
     >
@@ -41,11 +43,11 @@ const Nav = () => {
         style={{
           color: "#fff",
           textDecoration: "none",
-          fontSize: "1.2rem",
+          fontSize: "1rem",
           marginBottom: "1rem",
           display: "flex",
           alignItems: "center",
-          alignSelf: "center",
+          justifyContent: "flex-start",
           cursor: "pointer",
           opacity: "1.0",
           transition: "opacity 0.3s ease",
@@ -68,11 +70,11 @@ const Nav = () => {
         style={{
           color: "#fff",
           textDecoration: "none",
-          fontSize: "1.2rem",
+          fontSize: "1rem",
           marginBottom: "1rem",
           display: "flex",
           alignItems: "center",
-          alignSelf: "center",
+          justifyContent: "flex-start",
           cursor: "pointer",
           opacity: "1.0",
           transition: "opacity 0.3s ease",
@@ -91,15 +93,42 @@ const Nav = () => {
         Explore jobs
       </Link>
       <Link
+        to="/explorecompanies"
+        style={{
+          color: "#fff",
+          textDecoration: "none",
+          fontSize: "1rem",
+          marginBottom: "1rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          cursor: "pointer",
+          opacity: "1.0",
+          transition: "opacity 0.3s ease",
+        }}
+        onMouseEnter={(event) => {
+          event.target.style.opacity = "0.6";
+        }}
+        onMouseLeave={(event) => {
+          event.target.style.opacity = "1.0";
+        }}
+      >
+        <BsBuildingsFill
+          size={25}
+          style={{ color: "#FD3953", marginRight: "5" }}
+        />
+        Explore Companies
+      </Link>
+      <Link
         to="/appliedjobs"
         style={{
           color: "#fff",
           textDecoration: "none",
-          fontSize: "1.2rem",
+          fontSize: "1rem",
           marginBottom: "1rem",
           display: "flex",
           alignItems: "center",
-          alignSelf: "center",
+          justifyContent: "flex-start",
           cursor: "pointer",
           opacity: "1.0",
           transition: "opacity 0.3s ease",
@@ -118,15 +147,15 @@ const Nav = () => {
         Applied jobs
       </Link>
       <Link
-        to="/inbox"
+        to="/studentinbox"
         style={{
           color: "#fff",
           textDecoration: "none",
-          fontSize: "1.2rem",
+          fontSize: "1rem",
           marginBottom: "1rem",
           display: "flex",
           alignItems: "center",
-          alignSelf: "center",
+          justifyContent: "flex-start",
           cursor: "pointer",
           opacity: "1.0",
           transition: "opacity 0.3s ease",
@@ -144,6 +173,33 @@ const Nav = () => {
         />
         Inbox
       </Link>
+      <Link
+        to="/studentprofile"
+        style={{
+          color: "#fff",
+          textDecoration: "none",
+          fontSize: "1rem",
+          marginBottom: "1rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          cursor: "pointer",
+          opacity: "1.0",
+          transition: "opacity 0.3s ease",
+        }}
+        onMouseEnter={(event) => {
+          event.target.style.opacity = "0.6";
+        }}
+        onMouseLeave={(event) => {
+          event.target.style.opacity = "1.0";
+        }}
+      >
+        <AiFillSetting
+          size={30}
+          style={{ color: "#FD3953", marginRight: "5" }}
+        />
+        Profile settings
+      </Link>
       <div
         onClick={() => {
           logoutCall(dispatch);
@@ -152,13 +208,14 @@ const Nav = () => {
         style={{
           color: "#fff",
           textDecoration: "none",
-          fontSize: "1.2rem",
+          fontSize: "1rem",
           marginBottom: "1rem",
           display: "flex",
           alignItems: "center",
-          alignSelf: "center",
+          justifyContent: "flex-start",
           cursor: "pointer",
           opacity: "1.0",
+          paddingLeft: "5px",
           transition: "opacity 0.3s ease",
         }}
         onMouseEnter={(event) => {
