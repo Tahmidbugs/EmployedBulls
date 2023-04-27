@@ -198,10 +198,10 @@ const ExploreJobs = () => {
                       handleAllTitlesFilter(event.target.value)
                     }
                   >
-                    <option value="All Titles">All Titles</option>
-                    <option value="Software Engineer">Software Engineer</option>
-                    <option value="Data Analyst">Data Analyst</option>
-                    <option value="Product Manager">Product Manager</option>
+                    <option value="Company">Company</option>
+                    <option value="HUB DINING">HUB DINING</option>
+                    <option value="ENGINEERING">ENGINEERING</option>
+                    <option value="MUMA">MUMA</option>
                   </select>
                 )}
                 {filterOption === "Job Type" && (
