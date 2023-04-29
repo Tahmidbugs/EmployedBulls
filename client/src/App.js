@@ -31,6 +31,7 @@ import StudentRecView from "./Pages/StudentSide/studentRecView";
 import LandingPage from "./Pages/LandingPage";
 import ExploreJobs from "./Pages/StudentSide/ExploreJobs";
 import Applicants from "./Pages/RecruiterSide/Dashboard Components/Applicants";
+import StudentInbox from "./Pages/StudentSide/StudentInbox";
 
 function App() {
   const { user, dispatch } = useContext(AuthContext);
@@ -59,11 +60,7 @@ function App() {
             element={
               user ? (
                 user.isrecruiter ? (
-                  user.profilecomplete ? (
-                    <Navigate to="/Dashboard" />
-                  ) : (
-                    <RecruiterReg />
-                  )
+                  <Navigate to="/Dashboard" />
                 ) : user.profilecomplete ? (
                   <Navigate to="/studentdashboard" />
                 ) : (
@@ -81,7 +78,7 @@ function App() {
                 user.isrecruiter ? (
                   <Dashboard />
                 ) : user.profilecomplete ? (
-                  <Navigate to="/explorejobs" />
+                  <Navigate to="/studentdashboard" />
                 ) : (
                   <StudentAppForm />
                 )
@@ -123,6 +120,7 @@ function App() {
           <Route path="/studentrecview" element={<StudentRecView />} />
           <Route path="/explorecompanies" element={<ExploreCompanies />} />
           <Route path="/viewApplicants" element={<Applicants />} />
+          <Route path="/studentinbox" element={<StudentInbox />} />
         </Routes>
       </Router>
     </div>

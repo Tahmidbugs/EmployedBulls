@@ -24,7 +24,15 @@ const AppliedJobs = () => {
 
   console.log("applied jobs: ", appliedjobs);
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        backgroundImage:
+          "url(https://www.transparenttextures.com/patterns/batthern.png)",
+        backgroundColor: "#D9D9D9 ",
+      }}
+    >
       <Nav />
       <div
         style={{

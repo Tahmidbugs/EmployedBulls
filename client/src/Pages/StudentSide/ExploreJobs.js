@@ -21,6 +21,8 @@ const ExploreJobs = () => {
     setFilter(event.target.value);
   };
 
+  const [feeltered, setFeeltered] = useState([]);
+
   const [jobs, setJobs] = useState([
     // add more jobs here...
   ]);
@@ -75,24 +77,33 @@ const ExploreJobs = () => {
   };
 
   // Function to filter by job type
+
   const handleJobTypeFilter = (selectedType) => {
     setSelectedType(selectedType);
-    filteredJobs(
-      jobs.filter(
-        (job) => job.type === selectedType || selectedType === "All Types"
-      )
-    );
+
+    if (selectedType === "All Types") {
+      setFeeltered(jobs);
+    } else {
+      const filteredJobs = jobs.filter((job) =>
+        job.jobtypes.includes(selectedType)
+      );
+      setFeeltered(filteredJobs);
+    }
   };
 
   // Function to filter by salary
   const handleSalaryFilter = (selectedOrder) => {
     setSelectedOrder(selectedOrder);
-    if (selectedOrder === "Low to High") {
-      filteredJobs(jobs.sort((a, b) => a.salary - b.salary));
-    } else if (selectedOrder === "High to Low") {
-      filteredJobs(jobs.sort((a, b) => b.salary - a.salary));
+    console.log(selectedOrder);
+    if (selectedOrder === "lowest to highest") {
+      const sortedJobs = [...feeltered].sort((a, b) => a.salary - b.salary);
+      setFeeltered(sortedJobs);
+    } else if (selectedOrder === "highest to lowest") {
+      const sortedJobs = [...feeltered].sort((a, b) => b.salary - a.salary);
+      setFeeltered(sortedJobs);
     } else {
-      filteredJobs(jobs);
+      // Reset to original jobs
+      setFeeltered(jobs);
     }
   };
 
@@ -100,7 +111,8 @@ const ExploreJobs = () => {
     const fetchJobs = async () => {
       try {
         const res = await axios.get("http://localhost:8800/api/job/");
-        setJobs([...jobs, ...res.data]); // add the new data to the existing array
+        setFeeltered(res.data);
+        setJobs(res.data); // add the new data to the existing array
         console.log("Successful");
       } catch (error) {
         console.log(error);
@@ -108,6 +120,7 @@ const ExploreJobs = () => {
     };
 
     fetchJobs();
+    
   }, []);
 
   const filteredJobs =
@@ -122,13 +135,16 @@ const ExploreJobs = () => {
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
+        minHeight: "100vh",
+        backgroundImage:
+          "url(https://www.transparenttextures.com/patterns/batthern.png)",
+        backgroundColor: "#D9D9D9 ",
       }}
     >
       <Nav />
       <div
         style={{
-          width: "70%",
+          width: "80%",
           marginLeft: "100px",
           marginTop: "50px",
           display: "flex",
@@ -195,10 +211,12 @@ const ExploreJobs = () => {
                       handleAllTitlesFilter(event.target.value)
                     }
                   >
-                    <option value="All Titles">All Titles</option>
-                    <option value="Software Engineer">Software Engineer</option>
-                    <option value="Data Analyst">Data Analyst</option>
-                    <option value="Product Manager">Product Manager</option>
+                    <option value="Company">Company</option>
+                    <option value="The Hub Dining">The Hub Dining</option>
+                    <option value="College of Engineering">
+                      College of Engineering
+                    </option>
+                    <option value="MUMA">MUMA</option>
                   </select>
                 )}
                 {filterOption === "Job Type" && (
@@ -211,9 +229,10 @@ const ExploreJobs = () => {
                       color: "#333",
                       cursor: "pointer",
                     }}
-                    onChange={(event) =>
-                      handleJobTypeFilter(event.target.value)
-                    }
+                    onChange={(event) => {
+                      console.log("event", event.target.value);
+                      handleJobTypeFilter(event.target.value);
+                    }}
                   >
                     <option value="">Select</option>
                     <option value="Remote">Remote</option>
@@ -256,7 +275,7 @@ const ExploreJobs = () => {
             width: "100%",
           }}
         >
-          {filteredJobs.map((job) => (
+          {feeltered.map((job) => (
             <JobCard key={job.id} job={job} />
           ))}
         </div>
@@ -338,7 +357,7 @@ const JobPage = ({ info }) => {
   const [isSaved, setIsSaved] = useState(false);
   const { user, dispatch } = useContext(AuthContext);
 
-  console.log("viewing job page", info.id);
+  // console.log("viewing job page", info.id);
   const handleApply = async () => {
     try {
       const requestData = {
